@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */; };
+		1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */; };
+		1E6C5AD323BF3C8700A3DE04 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */; };
+		1E6C5AD523BF3C8700A3DE04 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD423BF3C8700A3DE04 /* Document.swift */; };
+		1E6C5AD823BF3C8700A3DE04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */; };
+		1E6C5ADA23BF3C8900A3DE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */; };
+		1E6C5ADD23BF3C8900A3DE04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */; };
+		1E6C5AE823BF3C8900A3DE04 /* EPUBViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AE723BF3C8900A3DE04 /* EPUBViewerTests.swift */; };
+		1E6C5AF323BF3C8900A3DE04 /* EPUBViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1E6C5AE423BF3C8900A3DE04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E6C5ACA23BF3C8700A3DE04;
+			remoteInfo = EPUBViewer;
+		};
+		1E6C5AEF23BF3C8900A3DE04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E6C5ACA23BF3C8700A3DE04;
+			remoteInfo = EPUBViewer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPUBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
+		1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		1E6C5AD423BF3C8700A3DE04 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		1E6C5AD723BF3C8700A3DE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1E6C5ADC23BF3C8900A3DE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1E6C5ADE23BF3C8900A3DE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E6C5AE323BF3C8900A3DE04 /* EPUBViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EPUBViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E6C5AE723BF3C8900A3DE04 /* EPUBViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBViewerTests.swift; sourceTree = "<group>"; };
+		1E6C5AE923BF3C8900A3DE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EPUBViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBViewerUITests.swift; sourceTree = "<group>"; };
+		1E6C5AF423BF3C8900A3DE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E6C5AC823BF3C8700A3DE04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5AE023BF3C8900A3DE04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5AEB23BF3C8900A3DE04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E6C5AC223BF3C8600A3DE04 = {
+			isa = PBXGroup;
+			children = (
+				1E6C5ACD23BF3C8700A3DE04 /* EPUBViewer */,
+				1E6C5AE623BF3C8900A3DE04 /* EPUBViewerTests */,
+				1E6C5AF123BF3C8900A3DE04 /* EPUBViewerUITests */,
+				1E6C5ACC23BF3C8700A3DE04 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1E6C5ACC23BF3C8700A3DE04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */,
+				1E6C5AE323BF3C8900A3DE04 /* EPUBViewerTests.xctest */,
+				1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1E6C5ACD23BF3C8700A3DE04 /* EPUBViewer */ = {
+			isa = PBXGroup;
+			children = (
+				1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */,
+				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
+				1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */,
+				1E6C5AD423BF3C8700A3DE04 /* Document.swift */,
+				1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */,
+				1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */,
+				1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */,
+				1E6C5ADE23BF3C8900A3DE04 /* Info.plist */,
+			);
+			path = EPUBViewer;
+			sourceTree = "<group>";
+		};
+		1E6C5AE623BF3C8900A3DE04 /* EPUBViewerTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E6C5AE723BF3C8900A3DE04 /* EPUBViewerTests.swift */,
+				1E6C5AE923BF3C8900A3DE04 /* Info.plist */,
+			);
+			path = EPUBViewerTests;
+			sourceTree = "<group>";
+		};
+		1E6C5AF123BF3C8900A3DE04 /* EPUBViewerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */,
+				1E6C5AF423BF3C8900A3DE04 /* Info.plist */,
+			);
+			path = EPUBViewerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E6C5AF723BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewer" */;
+			buildPhases = (
+				1E6C5AC723BF3C8700A3DE04 /* Sources */,
+				1E6C5AC823BF3C8700A3DE04 /* Frameworks */,
+				1E6C5AC923BF3C8700A3DE04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EPUBViewer;
+			productName = EPUBViewer;
+			productReference = 1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1E6C5AE223BF3C8900A3DE04 /* EPUBViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E6C5AFA23BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewerTests" */;
+			buildPhases = (
+				1E6C5ADF23BF3C8900A3DE04 /* Sources */,
+				1E6C5AE023BF3C8900A3DE04 /* Frameworks */,
+				1E6C5AE123BF3C8900A3DE04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E6C5AE523BF3C8900A3DE04 /* PBXTargetDependency */,
+			);
+			name = EPUBViewerTests;
+			productName = EPUBViewerTests;
+			productReference = 1E6C5AE323BF3C8900A3DE04 /* EPUBViewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1E6C5AED23BF3C8900A3DE04 /* EPUBViewerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E6C5AFD23BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewerUITests" */;
+			buildPhases = (
+				1E6C5AEA23BF3C8900A3DE04 /* Sources */,
+				1E6C5AEB23BF3C8900A3DE04 /* Frameworks */,
+				1E6C5AEC23BF3C8900A3DE04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E6C5AF023BF3C8900A3DE04 /* PBXTargetDependency */,
+			);
+			name = EPUBViewerUITests;
+			productName = EPUBViewerUITests;
+			productReference = 1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E6C5AC323BF3C8600A3DE04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Jaehong Kang";
+				TargetAttributes = {
+					1E6C5ACA23BF3C8700A3DE04 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					1E6C5AE223BF3C8900A3DE04 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 1E6C5ACA23BF3C8700A3DE04;
+					};
+					1E6C5AED23BF3C8900A3DE04 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 1E6C5ACA23BF3C8700A3DE04;
+					};
+				};
+			};
+			buildConfigurationList = 1E6C5AC623BF3C8600A3DE04 /* Build configuration list for PBXProject "EPUBViewer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1E6C5AC223BF3C8600A3DE04;
+			productRefGroup = 1E6C5ACC23BF3C8700A3DE04 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */,
+				1E6C5AE223BF3C8900A3DE04 /* EPUBViewerTests */,
+				1E6C5AED23BF3C8900A3DE04 /* EPUBViewerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E6C5AC923BF3C8700A3DE04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E6C5ADD23BF3C8900A3DE04 /* LaunchScreen.storyboard in Resources */,
+				1E6C5ADA23BF3C8900A3DE04 /* Assets.xcassets in Resources */,
+				1E6C5AD823BF3C8700A3DE04 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5AE123BF3C8900A3DE04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5AEC23BF3C8900A3DE04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E6C5AC723BF3C8700A3DE04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E6C5AD523BF3C8700A3DE04 /* Document.swift in Sources */,
+				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
+				1E6C5AD323BF3C8700A3DE04 /* DocumentView.swift in Sources */,
+				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5ADF23BF3C8900A3DE04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E6C5AE823BF3C8900A3DE04 /* EPUBViewerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E6C5AEA23BF3C8900A3DE04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E6C5AF323BF3C8900A3DE04 /* EPUBViewerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E6C5AE523BF3C8900A3DE04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */;
+			targetProxy = 1E6C5AE423BF3C8900A3DE04 /* PBXContainerItemProxy */;
+		};
+		1E6C5AF023BF3C8900A3DE04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */;
+			targetProxy = 1E6C5AEF23BF3C8900A3DE04 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E6C5AD723BF3C8700A3DE04 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E6C5ADC23BF3C8900A3DE04 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1E6C5AF523BF3C8900A3DE04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1E6C5AF623BF3C8900A3DE04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1E6C5AF823BF3C8900A3DE04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1E6C5AF923BF3C8900A3DE04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1E6C5AFB23BF3C8900A3DE04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EPUBViewer.app/EPUBViewer";
+			};
+			name = Debug;
+		};
+		1E6C5AFC23BF3C8900A3DE04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EPUBViewer.app/EPUBViewer";
+			};
+			name = Release;
+		};
+		1E6C5AFE23BF3C8900A3DE04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EPUBViewer;
+			};
+			name = Debug;
+		};
+		1E6C5AFF23BF3C8900A3DE04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = EPUBViewerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EPUBViewer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E6C5AC623BF3C8600A3DE04 /* Build configuration list for PBXProject "EPUBViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E6C5AF523BF3C8900A3DE04 /* Debug */,
+				1E6C5AF623BF3C8900A3DE04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E6C5AF723BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E6C5AF823BF3C8900A3DE04 /* Debug */,
+				1E6C5AF923BF3C8900A3DE04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E6C5AFA23BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E6C5AFB23BF3C8900A3DE04 /* Debug */,
+				1E6C5AFC23BF3C8900A3DE04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E6C5AFD23BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E6C5AFE23BF3C8900A3DE04 /* Debug */,
+				1E6C5AFF23BF3C8900A3DE04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
+}
