@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "EPUBKit",
+        "repositoryURL": "https://github.com/sinoru/EPUBKit.git",
+        "state": {
+          "branch": null,
+          "revision": "fa59716898dd799744140133d2fdf4d8bb0185c4",
+          "version": null
+        }
+      },
+      {
+        "package": "Minizip",
+        "repositoryURL": "https://github.com/sinoru/minizip.git",
+        "state": {
+          "branch": "9f7e70eb",
+          "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

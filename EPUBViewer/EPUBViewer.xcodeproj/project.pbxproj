@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		1E6C5ADD23BF3C8900A3DE04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */; };
 		1E6C5AE823BF3C8900A3DE04 /* EPUBViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AE723BF3C8900A3DE04 /* EPUBViewerTests.swift */; };
 		1E6C5AF323BF3C8900A3DE04 /* EPUBViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */; };
+		1E781A6723C87A45005DA32D /* EPUBKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1E781A6623C87A45005DA32D /* EPUBKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E781A6723C87A45005DA32D /* EPUBKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,9 @@
 			dependencies = (
 			);
 			name = EPUBViewer;
+			packageProductDependencies = (
+				1E781A6623C87A45005DA32D /* EPUBKit */,
+			);
 			productName = EPUBViewer;
 			productReference = 1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +226,9 @@
 				Base,
 			);
 			mainGroup = 1E6C5AC223BF3C8600A3DE04;
+			packageReferences = (
+				1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */,
+			);
 			productRefGroup = 1E6C5ACC23BF3C8700A3DE04 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -602,6 +610,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sinoru/EPUBKit.git";
+			requirement = {
+				kind = revision;
+				revision = fa59716898dd799744140133d2fdf4d8bb0185c4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1E781A6623C87A45005DA32D /* EPUBKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */;
+			productName = EPUBKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
 }
