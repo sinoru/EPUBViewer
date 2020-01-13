@@ -11,10 +11,9 @@ import EPUBKit
 
 struct EPUBPreviewView: View {
     @EnvironmentObject var epub: EPUB
+
     var dismiss: () -> Void
     var open: () -> Void
-
-    @State var isReaderPresented: Bool = false
 
     var body: some View {
         ContentsView(
@@ -22,13 +21,8 @@ struct EPUBPreviewView: View {
             creator: epub.metadata?.creator,
             filename: epub.epubFileURL.lastPathComponent,
             dismiss: dismiss,
-            isReaderPresented: $isReaderPresented
+            open: open
         )
-        .sheet(isPresented: $isReaderPresented, onDismiss: nil) {
-            EPUBReaderView(dismiss: {
-                self.isReaderPresented = false
-            })
-        }
     }
 }
 
@@ -39,8 +33,7 @@ extension EPUBPreviewView {
         var filename: String
 
         var dismiss: () -> Void
-
-        @Binding var isReaderPresented: Bool
+        var open: () -> Void
 
         var body: some View {
             NavigationView {
@@ -61,9 +54,7 @@ extension EPUBPreviewView {
                         }
                     }
                     Spacer()
-                    Button("Open") {
-                        self.isReaderPresented = true
-                    }
+                    Button("Open", action: open)
                 }
                 .navigationBarTitle(filename)
                 .navigationBarItems(trailing: Button("Done", action: dismiss))
@@ -80,7 +71,7 @@ struct EPUBPreviewView_Previews: PreviewProvider {
             creator: "The Creator",
             filename: "The filename",
             dismiss: {},
-            isReaderPresented: .constant(false)
+            open: {}
         )
     }
 }
