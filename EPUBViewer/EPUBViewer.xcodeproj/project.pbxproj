@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */; };
 		1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */; };
+		1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */; };
 		1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */; };
 		1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */; };
 		1E6C5AD323BF3C8700A3DE04 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */; };
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */,
 				1E781A6723C87A45005DA32D /* EPUBKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +224,7 @@
 			name = EPUBViewer;
 			packageProductDependencies = (
 				1E781A6623C87A45005DA32D /* EPUBKit */,
+				1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */,
 			);
 			productName = EPUBViewer;
 			productReference = 1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */;
@@ -320,6 +323,7 @@
 			mainGroup = 1E6C5AC223BF3C8600A3DE04;
 			packageReferences = (
 				1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */,
+				1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = 1E6C5ACC23BF3C8700A3DE04 /* Products */;
 			projectDirPath = "";
@@ -785,6 +789,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 		1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sinoru/EPUBKit.git";
@@ -796,6 +808,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
 		1E781A6623C87A45005DA32D /* EPUBKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1E781A6523C87A45005DA32D /* XCRemoteSwiftPackageReference "EPUBKit" */;
