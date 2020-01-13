@@ -99,32 +99,4 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     func presentError(_ error: Swift.Error) {
         debugPrint(error)
     }
-    
-    // MARK: Document Presentation
-    
-    func presentDocument(at documentURL: URL) {
-        let document = Document(fileURL: documentURL)
-
-        // Access the document
-        document.open(completionHandler: { success in
-            if success {
-                // Display the content of the document:
-                let view = DocumentView(document: document, dismiss: {
-                    self.closeDocument(document)
-                })
-
-                let documentViewController = UIHostingController(rootView: view)
-                self.present(documentViewController, animated: true, completion: nil)
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
-    }
-
-    func closeDocument(_ document: Document) {
-        dismiss(animated: true) {
-            document.close(completionHandler: nil)
-        }
-    }
 }
-
