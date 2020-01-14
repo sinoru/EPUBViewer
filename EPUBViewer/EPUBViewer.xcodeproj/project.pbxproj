@@ -836,7 +836,7 @@
 			repositoryURL = "https://github.com/sinoru/EPUBKit.git";
 			requirement = {
 				kind = revision;
-				revision = 133aeed2f97d618c1e86b36bd6b1a30510dda9a0;
+				revision = a8fdd1eb45d36044ed626f542551cddffeebcb72;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

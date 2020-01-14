@@ -50,7 +50,7 @@ struct ProgressHUD<Content> : View where Content : View {
     }
 
     var body: some SwiftUI.View {
-        ZStack {
+        ZStack(alignment: .center) {
             content
             if isPresented {
                 View(style: style)

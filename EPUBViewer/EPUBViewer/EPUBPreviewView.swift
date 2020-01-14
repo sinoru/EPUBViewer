@@ -15,14 +15,33 @@ struct EPUBPreviewView: View {
     var dismiss: () -> Void
     var open: () -> Void
 
+    @State private var error: Error?
+
     var body: some View {
-        ContentsView(
-            title: epub.metadata?.title,
-            creator: epub.metadata?.creator,
-            filename: epub.epubFileURL.lastPathComponent,
-            dismiss: dismiss,
-            open: open
-        )
+        NavigationView {
+            ContentsView(
+                title: epub.metadata?.title,
+                creator: epub.metadata?.creator,
+                filename: epub.epubFileURL.lastPathComponent,
+                dismiss: dismiss,
+                open: open
+            )
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onReceive(epub.$state) {
+            if case .error(let error) = $0 {
+                self.error = error
+            }
+        }
+        .alert(isPresented: .constant(error != nil)) {
+            Alert(
+                title: Text("Error"),
+                message: error.flatMap { Text($0.localizedDescription) },
+                dismissButton: .default(Text("Confirm")) {
+                    self.dismiss()
+                }
+            )
+        }
     }
 }
 
@@ -36,42 +55,42 @@ extension EPUBPreviewView {
         var open: () -> Void
 
         var body: some View {
-            NavigationView {
+            VStack {
+                Spacer()
                 VStack {
-                    Spacer()
-                    VStack {
-                        HStack {
-                            Text("Title")
-                                .foregroundColor(.secondary)
+                    HStack {
+                        Text("Title")
+                            .foregroundColor(.secondary)
 
-                            Text(title ?? "")
-                        }
-                        HStack {
-                            Text("Creator")
-                                .foregroundColor(.secondary)
-
-                            Text(creator ?? "")
-                        }
+                        Text(title ?? "")
                     }
-                    Spacer()
-                    Button("Open", action: open)
+                    HStack {
+                        Text("Creator")
+                            .foregroundColor(.secondary)
+
+                        Text(creator ?? "")
+                    }
                 }
-                .navigationBarTitle(filename)
-                .navigationBarItems(trailing: Button("Done", action: dismiss))
+                Spacer()
+                Button("Open", action: open)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationBarTitle(filename)
+            .navigationBarItems(trailing: Button("Done", action: dismiss))
         }
     }
 }
 
 struct EPUBPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        EPUBPreviewView.ContentsView(
-            title: "A Title",
-            creator: "The Creator",
-            filename: "The filename",
-            dismiss: {},
-            open: {}
-        )
+        NavigationView {
+            EPUBPreviewView.ContentsView(
+                title: "A Title",
+                creator: "The Creator",
+                filename: "The filename",
+                dismiss: {},
+                open: {}
+            )
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }

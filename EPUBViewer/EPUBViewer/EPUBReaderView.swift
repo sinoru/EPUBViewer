@@ -17,18 +17,19 @@ struct EPUBReaderView: View {
     @State private var error: Error?
     
     var body: some View {
-        ProgressHUD(style: .dark, isPresented: $isProgressHUDPresented) {
-            EPUBReaderView.ContentsView(title: epub.metadata?.title)
-            .onAppear(perform: openEPUB)
-            .alert(isPresented: .constant(error != nil)) {
-                Alert(
-                    title: Text("Error"),
-                    message: error.flatMap { Text($0.localizedDescription) },
-                    dismissButton: .default(Text("Confirm")) {
-                        self.dismiss()
-                    }
-                )
-            }
+        NavigationView {
+            EPUBReaderView.ContentsView(title: epub.metadata?.title, isProgressHUDPresented: $isProgressHUDPresented)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: openEPUB)
+        .alert(isPresented: .constant(error != nil)) {
+            Alert(
+                title: Text("Error"),
+                message: error.flatMap { Text($0.localizedDescription) },
+                dismissButton: .default(Text("Confirm")) {
+                    self.dismiss()
+                }
+            )
         }
     }
 
@@ -51,9 +52,10 @@ struct EPUBReaderView: View {
 extension EPUBReaderView {
     struct ContentsView: View {
         @State var title: String?
+        @Binding var isProgressHUDPresented: Bool
 
         var body: some View {
-            NavigationView {
+            ProgressHUD(style: .dark, isPresented: $isProgressHUDPresented) {
                 VStack {
                     HStack {
                         Text("Hello, World!")
@@ -61,7 +63,6 @@ extension EPUBReaderView {
                 }
                 .navigationBarTitle(Text(title ?? ""), displayMode: .inline)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
@@ -69,11 +70,15 @@ extension EPUBReaderView {
 struct EPUBReaderView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(["iPhone SE", "iPhone 11 Pro", "iPad Pro (11-inch)"], id: \.self) { deviceName in
-            EPUBReaderView.ContentsView(
-                title: "A Title"
-            )
-                .previewDevice(PreviewDevice(rawValue: deviceName))
-                .previewDisplayName(deviceName)
+            NavigationView {
+                EPUBReaderView.ContentsView(
+                    title: "A Title",
+                    isProgressHUDPresented: .constant(true)
+                )
+                    .previewDevice(PreviewDevice(rawValue: deviceName))
+                    .previewDisplayName(deviceName)
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
