@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/sinoru/EPUBKit.git",
         "state": {
           "branch": null,
-          "revision": "0b9e8e49af2eaa0cc6e44b54350e9ab62e812c4b",
+          "revision": "133aeed2f97d618c1e86b36bd6b1a30510dda9a0",
           "version": null
         }
       },
@@ -25,6 +25,15 @@
         "state": {
           "branch": "9f7e70eb",
           "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
+          "version": null
+        }
+      },
+      {
+        "package": "SNFoundation",
+        "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
+        "state": {
+          "branch": "b86f6b5",
+          "revision": "b86f6b5c794666c78f9cf15abf2dfbdd193bfafe",
           "version": null
         }
       }
