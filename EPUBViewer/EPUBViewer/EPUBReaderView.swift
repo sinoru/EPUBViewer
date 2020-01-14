@@ -56,11 +56,7 @@ extension EPUBReaderView {
 
         var body: some View {
             ProgressHUD(style: .dark, isPresented: $isProgressHUDPresented) {
-                VStack {
-                    HStack {
-                        Text("Hello, World!")
-                    }
-                }
+                EPUBReaderPageViewController.SwiftUIRepresentation()
                 .navigationBarTitle(Text(title ?? ""), displayMode: .inline)
             }
         }
