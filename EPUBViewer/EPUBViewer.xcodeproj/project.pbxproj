@@ -24,6 +24,7 @@
 		1E781A7523C87AB5005DA32D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E781A7323C87AB5005DA32D /* MainInterface.storyboard */; };
 		1E781A7923C87AB5005DA32D /* QuickLookPreview.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E781A7F23C87AE6005DA32D /* EPUBKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1E781A7E23C87AE6005DA32D /* EPUBKit */; };
+		1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		1E781A7423C87AB5005DA32D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		1E781A7623C87AB5005DA32D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC261D923C5892000E99DBB /* EPUBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EPUBViewer.entitlements; sourceTree = "<group>"; };
+		1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +157,7 @@
 				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
 				1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */,
 				1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */,
-				1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */,
+				1EEC3AD623CD5A0B008BA69D /* ProgressHUD */,
 				1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */,
 				1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */,
 				1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */,
@@ -199,6 +201,15 @@
 				1E781A7623C87AB5005DA32D /* Info.plist */,
 			);
 			path = QuickLookPreview;
+			sourceTree = "<group>";
+		};
+		1EEC3AD623CD5A0B008BA69D /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */,
+				1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */,
+			);
+			path = ProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,6 +387,7 @@
 			files = (
 				1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */,
 				1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */,
+				1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
 				1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */,
 				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,

@@ -12,9 +12,39 @@ import EPUBKit
 struct EPUBReaderView: View {
     @EnvironmentObject var epub: EPUB
     var dismiss: () -> Void
+
+    @State private var isProgressHUDPresented: Bool = true
+    @State private var error: Error?
     
     var body: some View {
-        EPUBReaderView.ContentsView(title: epub.metadata?.title)
+        ProgressHUD(style: .dark, isPresented: $isProgressHUDPresented) {
+            EPUBReaderView.ContentsView(title: epub.metadata?.title)
+            .onAppear(perform: openEPUB)
+            .alert(isPresented: .constant(error != nil)) {
+                Alert(
+                    title: Text("Error"),
+                    message: error.flatMap { Text($0.localizedDescription) },
+                    dismissButton: .default(Text("Confirm")) {
+                        self.dismiss()
+                    }
+                )
+            }
+        }
+    }
+
+    func openEPUB() {
+        epub.open { (result) in
+            defer {
+                self.isProgressHUDPresented = false
+            }
+
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                self.error = error
+            }
+        }
     }
 }
 
