@@ -10,24 +10,24 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    lazy var webView: WKWebView
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    var webViewConfiguration: WKWebViewConfiguration {
+        return WKWebViewConfiguration()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    lazy var webView: WKWebView = {
+        let webView = WKWebView(frame: .zero, configuration: self.webViewConfiguration)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+
+        return webView
+    }()
+
+    override func loadView() {
+        view = webView
     }
-    */
-
 }
+
+extension WebViewController: WKUIDelegate { }
+
+extension WebViewController: WKNavigationDelegate { }

@@ -12,7 +12,7 @@ import SwiftUI
 
 class EPUBReaderPageViewController: UIViewController {
     static let pageBufferSize = 1
-    typealias WebViewController = UIHostingController<WebView>
+    typealias WebViewController = EPUBReaderWebViewController
 
     var epub: EPUB?
 
