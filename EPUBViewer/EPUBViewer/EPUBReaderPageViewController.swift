@@ -8,22 +8,50 @@
 
 import UIKit
 import EPUBKit
+import SwiftUI
 
-class EPUBReaderPageViewController: UIPageViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class EPUBReaderPageViewController: UIViewController {
+    typealias WebViewController = UIHostingController<WebView>
 
-        // Do any additional setup after loading the view.
-    }
+    var epub: EPUB?
 
-    /*
-    // MARK: - Navigation
+    private var pageViewController: _PageViewController?
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    private var webViewControllers = [WebViewController]()
 
 }
+
+extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+
+    }
+}
+
+extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let webViewController = viewController as? WebViewController else {
+            fatalError("viewController should be \(WebViewController.self) not \(type(of: viewController).self)")
+        }
+
+        return webViewControllers.firstIndex(of: webViewController).flatMap { self.webViewControllers[$0 < self.webViewControllers.count - 1 ? $0 + 1 : 0] }
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let webViewController = viewController as? WebViewController else {
+            fatalError("viewController should be \(WebViewController.self) not \(type(of: viewController).self)")
+        }
+
+        return webViewControllers.firstIndex(of: webViewController).flatMap { self.webViewControllers[$0 > 0 ? $0 - 1 : self.webViewControllers.endIndex - 1 ] }
+    }
+}
+
+extension EPUBReaderPageViewController {
+    private class _PageViewController: UIPageViewController {
+
+    }
+}
+
