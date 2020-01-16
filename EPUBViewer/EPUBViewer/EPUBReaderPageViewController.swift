@@ -31,7 +31,14 @@ class EPUBReaderPageViewController: UIViewController {
     }
 
     private lazy var pageViewController: PageViewController = {
-        PageViewController()
+        let pageViewController = PageViewController(
+            transitionStyle: .pageCurl,
+            navigationOrientation: .horizontal,
+            options: [.spineLocation: UIPageViewController.SpineLocation.mid.rawValue]
+        )
+        pageViewController.isDoubleSided = true
+
+        return pageViewController
     }()
 
     private var previousWebViewControllers = [WebViewController]()
@@ -95,14 +102,17 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        let webViewController = WebViewController()
-        webViewController.position = .init(
-            epub: epub,
-            epubItemsIndex: epub.items?.firstIndex(where: { $0.id == epub.spine?.itemRefs.first?.id }),
-            yOffset: 0
-        )
+        let webViewControllers: [WebViewController] = (0..<2).map {
+            let webViewController = WebViewController()
+            webViewController.position = .init(
+                epub: epub,
+                epubItemRef: epub.spine?.itemRefs.first,
+                yOffset: self.view.bounds.height * CGFloat($0)
+            )
+            return webViewController
+        }
 
-        pageViewController.setViewControllers([webViewController], direction: .forward, animated: false)
+        pageViewController.setViewControllers(webViewControllers, direction: .forward, animated: false)
         updateWebViewControllers()
     }
 

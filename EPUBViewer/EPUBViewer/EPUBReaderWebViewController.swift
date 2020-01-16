@@ -46,7 +46,7 @@ class EPUBReaderWebViewController: WebViewController {
             return
         }
 
-        guard let epubItem = position.epubItemsIndex.flatMap({ epub.items?[$0] }) else {
+        guard let epubItem = position.epubItemRef.flatMap({ epub.items?[$0] }) else {
             webView.load(URLRequest(url: URL(string:"about:blank")!))
             return
         }
@@ -80,7 +80,7 @@ class EPUBReaderWebViewController: WebViewController {
 extension EPUBReaderWebViewController {
     struct Position {
         var epub: EPUB?
-        var epubItemsIndex: Int?
+        var epubItemRef: EPUB.Item.Ref?
         var yOffset: CGFloat = 0
     }
 }
