@@ -18,6 +18,15 @@
           "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
           "version": null
         }
+      },
+      {
+        "package": "SNFoundation",
+        "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "2c6d280d9e6ff206451b114080ccb8b4b960ae6a",
+          "version": null
+        }
       }
     ]
   },
