@@ -11,8 +11,10 @@
 		1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */; };
 		1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */; };
 		1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */; };
-		1E2F96E923D0138200A6CD79 /* EPUBKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96E823D0138200A6CD79 /* EPUBKit */; };
-		1E2F96EB23D0138700A6CD79 /* EPUBKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EA23D0138700A6CD79 /* EPUBKit */; };
+		1E2F96ED23D013CF00A6CD79 /* EPUBKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */; };
+		1E2F96EE23D013CF00A6CD79 /* EPUBKitDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1E2F96F023D013D800A6CD79 /* EPUBKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */; };
+		1E2F96F123D013D800A6CD79 /* EPUBKitDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */; };
 		1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */; };
 		1E6C5AD823BF3C8700A3DE04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */; };
@@ -73,6 +75,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1E2F96F123D013D800A6CD79 /* EPUBKitDynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +86,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1E2F96EE23D013CF00A6CD79 /* EPUBKitDynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,7 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */,
-				1E2F96E923D0138200A6CD79 /* EPUBKit in Frameworks */,
+				1E2F96F023D013D800A6CD79 /* EPUBKitDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +153,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E2F96ED23D013CF00A6CD79 /* EPUBKitDynamic in Frameworks */,
 				1E781A6F23C87AB5005DA32D /* QuickLook.framework in Frameworks */,
-				1E2F96EB23D0138700A6CD79 /* EPUBKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +273,7 @@
 			name = EPUBViewer;
 			packageProductDependencies = (
 				1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */,
-				1E2F96E823D0138200A6CD79 /* EPUBKit */,
+				1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */,
 			);
 			productName = EPUBViewer;
 			productReference = 1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */;
@@ -326,7 +330,7 @@
 			);
 			name = QuickLookPreview;
 			packageProductDependencies = (
-				1E2F96EA23D0138700A6CD79 /* EPUBKit */,
+				1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */,
 			);
 			productName = QuickLookPreview;
 			productReference = 1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */;
@@ -860,13 +864,13 @@
 			package = 1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
 		};
-		1E2F96E823D0138200A6CD79 /* EPUBKit */ = {
+		1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = EPUBKit;
+			productName = EPUBKitDynamic;
 		};
-		1E2F96EA23D0138700A6CD79 /* EPUBKit */ = {
+		1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = EPUBKit;
+			productName = EPUBKitDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
