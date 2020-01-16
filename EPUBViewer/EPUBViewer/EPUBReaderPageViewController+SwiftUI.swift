@@ -7,15 +7,18 @@
 //
 
 import SwiftUI
+import EPUBKit
 
 extension EPUBReaderPageViewController {
     struct SwiftUIRepresentation: UIViewControllerRepresentable {
+        @EnvironmentObject var epub: EPUB
+
         func makeUIViewController(context: UIViewControllerRepresentableContext<EPUBReaderPageViewController.SwiftUIRepresentation>) -> EPUBReaderPageViewController {
             return EPUBReaderPageViewController()
         }
 
         func updateUIViewController(_ uiViewController: EPUBReaderPageViewController, context: UIViewControllerRepresentableContext<EPUBReaderPageViewController.SwiftUIRepresentation>) {
-
+            uiViewController.epub = epub
         }
     }
 }

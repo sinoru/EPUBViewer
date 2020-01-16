@@ -35,7 +35,7 @@ class EPUBReaderWebViewController: WebViewController {
         webView.isUserInteractionEnabled = false
     }
 
-    func loadEPUBItem() {
+    private func loadEPUBItem() {
         guard let epub = position.epub else {
             webView.load(URLRequest(url: URL(string:"about:blank")!))
             return
@@ -51,7 +51,19 @@ class EPUBReaderWebViewController: WebViewController {
             return
         }
 
-        self.webView.loadFileURL(URL(fileURLWithPath: epubItem.relativePath, relativeTo: epubResourceURL), allowingReadAccessTo: epubResourceURL)
+        self.webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.relativePath), allowingReadAccessTo: epubResourceURL)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        webView.evaluateJavaScript("window.scrollY") { (scrollY, _) in
+            guard let scrollY = scrollY as? CGFloat else {
+                return
+            }
+
+
+        }
     }
 
     /*
@@ -63,11 +75,6 @@ class EPUBReaderWebViewController: WebViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("window.scrollTo(0, \(position.yOffset))")
-    }
-
 }
 
 extension EPUBReaderWebViewController {
@@ -75,5 +82,22 @@ extension EPUBReaderWebViewController {
         var epub: EPUB?
         var epubItemsIndex: Int?
         var yOffset: CGFloat = 0
+    }
+}
+
+extension EPUBReaderWebViewController {
+    @objc
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("window.scrollTo(0, \(position.yOffset))")
+    }
+
+    @objc
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        debugPrint(error)
+    }
+
+    @objc
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        debugPrint(error)
     }
 }

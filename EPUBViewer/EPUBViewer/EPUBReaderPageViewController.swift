@@ -9,21 +9,54 @@
 import UIKit
 import EPUBKit
 import SwiftUI
+import Combine
 
 class EPUBReaderPageViewController: UIViewController {
     static let pageBufferSize = 1
     typealias WebViewController = EPUBReaderWebViewController
+    typealias PageViewController = UIPageViewController
 
-    var epub: EPUB?
+    var epubStateSubscrpition: AnyCancellable?
+    var epub: EPUB? {
+        didSet {
+            self.epubStateSubscrpition = epub?.$state
+                .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
+                .sink { (state) in
+                    debugPrint(state)
+                    self.loadWebViewControllers()
+                }
 
-    private var pageViewController: _PageViewController?
+            self.loadWebViewControllers()
+        }
+    }
+
+    private lazy var pageViewController: PageViewController = {
+        PageViewController()
+    }()
 
     private var previousWebViewControllers = [WebViewController]()
     private var nextWebViewControllers = [WebViewController]()
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        loadWebViewControllers()
+    }
+
     func updateWebViewControllers(reusableWebViewControllers: [WebViewController] = []) {
-        let currentViewController = pageViewController?.viewControllers ?? []
-        let isDoubleSided = pageViewController?.isDoubleSided ?? true
+        let currentViewController = pageViewController.viewControllers ?? []
+        let isDoubleSided = pageViewController.isDoubleSided
 
         let pageBufferSize = (isDoubleSided ? Self.pageBufferSize * 2 : Self.pageBufferSize)
 
@@ -34,15 +67,43 @@ class EPUBReaderPageViewController: UIViewController {
 
         if previousWebViewControllers.count < pageBufferSize {
             (1...(pageBufferSize - previousWebViewControllers.count)).forEach { (_) in
+                previousWebViewControllers.insert(reusableWebViewControllers.popLast() ?? WebViewController(), at: 0)
+            }
+        }
 
+        if nextWebViewControllers.count < pageBufferSize {
+            (1...(pageBufferSize - nextWebViewControllers.count)).forEach { (_) in
+                nextWebViewControllers.append(reusableWebViewControllers.popLast() ?? WebViewController())
             }
         }
 
 
+    }
 
-        if nextWebViewControllers.count < pageBufferSize {
-
+    func loadWebViewControllers() {
+        guard isViewLoaded else {
+            return
         }
+
+        guard let epub = epub else {
+            pageViewController.setViewControllers(nil, direction: .forward, animated: false)
+            return
+        }
+
+        guard case .normal = epub.state else {
+            pageViewController.setViewControllers(nil, direction: .forward, animated: false)
+            return
+        }
+
+        let webViewController = WebViewController()
+        webViewController.position = .init(
+            epub: epub,
+            epubItemsIndex: epub.items?.firstIndex(where: { $0.id == epub.spine?.itemRefs.first?.id }),
+            yOffset: 0
+        )
+
+        pageViewController.setViewControllers([webViewController], direction: .forward, animated: false)
+        updateWebViewControllers()
     }
 
 }
@@ -70,10 +131,3 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         return nextWebViewControllers.first
     }
 }
-
-extension EPUBReaderPageViewController {
-    private class _PageViewController: UIPageViewController {
-
-    }
-}
-
