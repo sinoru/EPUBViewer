@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "EPUBKit",
-        "repositoryURL": "https://github.com/sinoru/EPUBKit.git",
-        "state": {
-          "branch": null,
-          "revision": "c69576b21640f618aaadd301c4ca9d0a7b5c7c73",
-          "version": null
-        }
-      },
-      {
         "package": "JGProgressHUD",
         "repositoryURL": "https://github.com/JonasGessner/JGProgressHUD.git",
         "state": {
@@ -25,15 +16,6 @@
         "state": {
           "branch": "9f7e70eb",
           "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
-          "version": null
-        }
-      },
-      {
-        "package": "SNFoundation",
-        "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "2c6d280d9e6ff206451b114080ccb8b4b960ae6a",
           "version": null
         }
       }
