@@ -16,13 +16,21 @@ class EPUBReaderPageViewController: UIViewController {
     typealias WebViewController = EPUBReaderWebViewController
     typealias PageViewController = UIPageViewController
 
-    var epubStateSubscrpition: AnyCancellable?
+    var epubPageCoordinatorSubscription: AnyCancellable?
     var epub: EPUB? {
         didSet {
-            self.epubStateSubscrpition = epub?.$state
-                .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
-                .sink { (state) in
-                    debugPrint(state)
+            self.epubPageCoordinatorSubscription = epub?.pageCoordinator.$spineItemHeights
+                .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
+                .sink {
+                    guard let spineFirstItemRef = self.epub?.spine?.itemRefs.first else {
+                        return
+                    }
+
+                    guard $0[spineFirstItemRef] != nil else {
+                        return
+                    }
+
+                    self.epubPageCoordinatorSubscription = nil
                     self.loadWebViewControllers()
                 }
 
@@ -59,6 +67,18 @@ class EPUBReaderPageViewController: UIViewController {
         ])
 
         loadWebViewControllers()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        self.epub?.pageCoordinator.pageWidth = size.width / 2
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        self.epub?.pageCoordinator.pageWidth = self.view.bounds.size.width / 2
     }
 
     func updateWebViewControllers(reusableWebViewControllers: [WebViewController] = []) {
@@ -102,17 +122,46 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        let webViewControllers: [WebViewController] = (0..<2).map {
-            let webViewController = WebViewController()
-            webViewController.position = .init(
-                epub: epub,
-                epubItemRef: epub.spine?.itemRefs.first,
-                yOffset: self.view.bounds.height * CGFloat($0)
-            )
-            return webViewController
+        guard let firstSpineItemRef = epub.spine?.itemRefs.first else {
+            pageViewController.setViewControllers(nil, direction: .forward, animated: false)
+            return
         }
 
-        pageViewController.setViewControllers(webViewControllers, direction: .forward, animated: false)
+        guard let firstSpineItemHeight = epub.pageCoordinator.spineItemHeights[firstSpineItemRef] else {
+            pageViewController.setViewControllers(nil, direction: .forward, animated: false)
+            return
+        }
+
+        if firstSpineItemHeight < self.view.bounds.height {
+            pageViewController.setViewControllers(
+                (0..<2).map {
+                    let webViewController = WebViewController()
+                    webViewController.position = .init(
+                        epub: epub,
+                        epubItemRef: epub.spine?.itemRefs[$0],
+                        yOffset: 0
+                    )
+                    return webViewController
+                },
+                direction: .forward,
+                animated: true
+            )
+        } else {
+            pageViewController.setViewControllers(
+                (0..<2).map {
+                    let webViewController = WebViewController()
+                    webViewController.position = .init(
+                        epub: epub,
+                        epubItemRef: epub.spine?.itemRefs.first,
+                        yOffset: self.view.bounds.height * CGFloat($0)
+                    )
+                    return webViewController
+                },
+                direction: .forward,
+                animated: true
+            )
+        }
+
         updateWebViewControllers()
     }
 
