@@ -19,6 +19,10 @@ class EPUBReaderPageViewController: UIViewController {
     var epubPageCoordinatorSubscription: AnyCancellable?
     var epub: EPUB? {
         didSet {
+            guard epub !== oldValue else {
+                return
+            }
+
             self.epubPageCoordinatorSubscription = epub?.pageCoordinator.$spineItemHeights
                 .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
                 .sink {
