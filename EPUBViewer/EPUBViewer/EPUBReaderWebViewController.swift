@@ -24,7 +24,16 @@ class EPUBReaderWebViewController: WebViewController {
 
     var position = Position() {
         didSet {
-            self.loadEPUBItem()
+            guard position != oldValue else {
+                return
+            }
+
+            guard position.epub == oldValue.epub && position.epubItemRef == oldValue.epubItemRef else {
+                loadEPUBItem()
+                return
+            }
+
+            setWebViewContentOffset(.init(x: 0, y: position.yOffset))
         }
     }
 
@@ -36,22 +45,16 @@ class EPUBReaderWebViewController: WebViewController {
     }
 
     private func loadEPUBItem() {
-        guard let epub = position.epub else {
+        guard
+            let epub = position.epub,
+            let epubResourceURL = epub.resourceURL,
+            let epubItem = position.epubItemRef.flatMap({ epub.items?[$0] })
+        else {
             webView.load(URLRequest(url: URL(string:"about:blank")!))
             return
         }
 
-        guard let epubResourceURL = epub.resourceURL else {
-            webView.load(URLRequest(url: URL(string:"about:blank")!))
-            return
-        }
-
-        guard let epubItem = position.epubItemRef.flatMap({ epub.items?[$0] }) else {
-            webView.load(URLRequest(url: URL(string:"about:blank")!))
-            return
-        }
-
-        self.webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.relativePath), allowingReadAccessTo: epubResourceURL)
+        webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.relativePath), allowingReadAccessTo: epubResourceURL)
     }
 
     override func viewDidLayoutSubviews() {
@@ -75,10 +78,27 @@ class EPUBReaderWebViewController: WebViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+    func setWebViewContentOffset(_ offset: CGPoint) {
+        webView.evaluateJavaScript("""
+            switch (document.readyState) {
+                case "complete":
+                    window.scrollTo(\(offset.x), \(offset.y))
+                    break
+                default:
+                    window.addEventListener('load', (event) => {
+                        window.scrollTo(\(offset.x), \(offset.y))
+                    })
+                    break
+            }
+        """, completionHandler: { (_, error) in
+            debugPrint(error)
+        })
+    }
 }
 
 extension EPUBReaderWebViewController {
-    struct Position {
+    struct Position: Equatable {
         var epub: EPUB?
         var epubItemRef: EPUB.Item.Ref?
         var yOffset: CGFloat = 0
@@ -88,7 +108,7 @@ extension EPUBReaderWebViewController {
 extension EPUBReaderWebViewController {
     @objc
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("window.scrollTo(0, \(position.yOffset))")
+        setWebViewContentOffset(.init(x: 0, y: position.yOffset))
     }
 
     @objc
