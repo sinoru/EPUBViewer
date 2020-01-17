@@ -57,18 +57,6 @@ class EPUBReaderWebViewController: WebViewController {
         webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.relativePath), allowingReadAccessTo: epubResourceURL)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        webView.evaluateJavaScript("window.scrollY") { (scrollY, _) in
-            guard let scrollY = scrollY as? CGFloat else {
-                return
-            }
-
-
-        }
-    }
-
     /*
     // MARK: - Navigation
 
@@ -92,7 +80,7 @@ class EPUBReaderWebViewController: WebViewController {
                     break
             }
         """, completionHandler: { (_, error) in
-            debugPrint(error)
+            debugPrint(error as Any)
         })
     }
 }
