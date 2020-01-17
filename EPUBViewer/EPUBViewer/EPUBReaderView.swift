@@ -18,7 +18,7 @@ struct EPUBReaderView: View {
     
     var body: some View {
         NavigationView {
-            EPUBReaderView.ContentsView(title: epub.metadata?.title, isProgressHUDPresented: $isProgressHUDPresented)
+            EPUBReaderView.ContentsView(title: epub.metadata?.title, isProgressHUDPresented: $isProgressHUDPresented, dismiss: dismiss)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: openEPUB)
@@ -54,10 +54,13 @@ extension EPUBReaderView {
         @State var title: String?
         @Binding var isProgressHUDPresented: Bool
 
+        var dismiss: () -> Void
+
         var body: some View {
             ProgressHUD(style: .dark, isPresented: $isProgressHUDPresented) {
                 EPUBReaderPageViewController.SwiftUIRepresentation()
                 .navigationBarTitle(Text(title ?? ""), displayMode: .inline)
+                    .navigationBarItems(leading: Button("Close", action: dismiss))
             }
         }
     }
@@ -69,7 +72,8 @@ struct EPUBReaderView_Previews: PreviewProvider {
             NavigationView {
                 EPUBReaderView.ContentsView(
                     title: "A Title",
-                    isProgressHUDPresented: .constant(true)
+                    isProgressHUDPresented: .constant(true),
+                    dismiss: {}
                 )
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .previewDisplayName(deviceName)
