@@ -4,4 +4,7 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
+   <FileRef
+      location = "group:EPUBViewer/EPUBViewer.xcodeproj">
+   </FileRef>
 </Workspace>
