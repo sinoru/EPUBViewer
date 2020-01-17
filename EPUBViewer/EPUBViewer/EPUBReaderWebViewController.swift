@@ -16,8 +16,6 @@ class EPUBReaderWebViewController: WebViewController {
     override var webViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguartion = WKWebViewConfiguration()
         webViewConfiguartion.processPool = Self.processPool
-        webViewConfiguartion.userContentController.addUserScript(
-            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: true))
 
         return webViewConfiguartion
     }
