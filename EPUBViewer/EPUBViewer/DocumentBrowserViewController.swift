@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import EPUBKit
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -16,7 +17,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         delegate = self
         
-        allowsDocumentCreation = true
+        allowsDocumentCreation = false
         allowsPickingMultipleItems = false
         
         // Update the style of the UIDocumentBrowserViewController
@@ -48,43 +49,54 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         // Present the Document View Controller for the first document that was picked.
         // If you support picking multiple items, make sure you handle them all.
-        presentDocument(at: sourceURL)
+        previewEPUB(at: sourceURL)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
         // Present the Document View Controller for the new newly created document
-        presentDocument(at: destinationURL)
+        previewEPUB(at: destinationURL)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
         // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
     }
-    
-    // MARK: Document Presentation
-    
-    func presentDocument(at documentURL: URL) {
-        let document = Document(fileURL: documentURL)
 
-        // Access the document
-        document.open(completionHandler: { success in
-            if success {
-                // Display the content of the document:
-                let view = DocumentView(document: document, dismiss: {
-                    self.closeDocument(document)
-                })
+    // MARK: EPUB Preview
 
-                let documentViewController = UIHostingController(rootView: view)
-                self.present(documentViewController, animated: true, completion: nil)
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
-    }
+    func previewEPUB(at fileURL: URL) {
+        do {
+            let epub = try EPUB(fileURL: fileURL)
 
-    func closeDocument(_ document: Document) {
-        dismiss(animated: true) {
-            document.close(completionHandler: nil)
+            let epubPrewviewView = EPUBPreviewView(dismiss: {
+                self.dismiss(animated: true)
+            }, open: {
+                self.dismiss(animated: true) {
+                    self.openEPUB(epub)
+                }
+            })
+            .environmentObject(epub)
+
+            let epubPrewviewViewController = UIHostingController(rootView: epubPrewviewView)
+            self.present(epubPrewviewViewController, animated: true, completion: nil)
+        } catch {
+            self.presentError(error)
         }
     }
-}
 
+    func openEPUB(_ epub: EPUB) {
+        let epubReaderViewController = UIHostingController(rootView: {
+            EPUBReaderView(dismiss: {
+                self.dismiss(animated: true)
+            })
+            .environmentObject(epub)
+        }())
+        epubReaderViewController.modalPresentationStyle = .fullScreen
+        self.present(epubReaderViewController, animated: true, completion: nil)
+    }
+
+    // MAKR: -
+
+    func presentError(_ error: Swift.Error) {
+        debugPrint(error)
+    }
+}

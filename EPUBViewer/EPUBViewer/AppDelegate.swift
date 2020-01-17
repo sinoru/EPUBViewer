@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+ 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             // Present the Document View Controller for the revealed URL
-            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
+            documentBrowserViewController.previewEPUB(at: revealedDocumentURL!)
         }
 
         return true

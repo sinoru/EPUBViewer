@@ -3,19 +3,34 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */; };
+		1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */; };
+		1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */; };
+		1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */; };
+		1E2F96ED23D013CF00A6CD79 /* EPUBKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */; };
+		1E2F96EE23D013CF00A6CD79 /* EPUBKitDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1E2F96F023D013D800A6CD79 /* EPUBKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */; };
+		1E2F96F123D013D800A6CD79 /* EPUBKitDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */; };
 		1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */; };
-		1E6C5AD323BF3C8700A3DE04 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */; };
-		1E6C5AD523BF3C8700A3DE04 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD423BF3C8700A3DE04 /* Document.swift */; };
 		1E6C5AD823BF3C8700A3DE04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */; };
 		1E6C5ADA23BF3C8900A3DE04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */; };
 		1E6C5ADD23BF3C8900A3DE04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */; };
 		1E6C5AE823BF3C8900A3DE04 /* EPUBViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AE723BF3C8900A3DE04 /* EPUBViewerTests.swift */; };
 		1E6C5AF323BF3C8900A3DE04 /* EPUBViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */; };
+		1E781A6F23C87AB5005DA32D /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E781A6E23C87AB5005DA32D /* QuickLook.framework */; };
+		1E781A7223C87AB5005DA32D /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E781A7123C87AB5005DA32D /* PreviewViewController.swift */; };
+		1E781A7523C87AB5005DA32D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E781A7323C87AB5005DA32D /* MainInterface.storyboard */; };
+		1E781A7923C87AB5005DA32D /* QuickLookPreview.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1EE16B6423CEF9B800E1FA37 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE16B6323CEF9B800E1FA37 /* WebViewController.swift */; };
+		1EE16B6623CF070000E1FA37 /* EPUBReaderWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE16B6523CF070000E1FA37 /* EPUBReaderWebViewController.swift */; };
+		1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */; };
+		1EF4965523CDB7B400B7376B /* EPUBReaderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */; };
+		1EF4965723CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,14 +48,59 @@
 			remoteGlobalIDString = 1E6C5ACA23BF3C8700A3DE04;
 			remoteInfo = EPUBViewer;
 		};
+		1E781A7723C87AB5005DA32D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E781A6B23C87AB5005DA32D;
+			remoteInfo = QuickLookPreview;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1E781A7D23C87AB5005DA32D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1E781A7923C87AB5005DA32D /* QuickLookPreview.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1EF4963E23CD85BB00B7376B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E2F96F123D013D800A6CD79 /* EPUBKitDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1EF4964223CD85C400B7376B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E2F96EE23D013CF00A6CD79 /* EPUBKitDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBPreviewView.swift; sourceTree = "<group>"; };
+		1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderView.swift; sourceTree = "<group>"; };
+		1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUDController.swift; sourceTree = "<group>"; };
+		1E2F96E723D0137300A6CD79 /* EPUBKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EPUBKit; sourceTree = "<group>"; };
 		1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPUBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
-		1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
-		1E6C5AD423BF3C8700A3DE04 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		1E6C5AD723BF3C8700A3DE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E6C5ADC23BF3C8900A3DE04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +111,18 @@
 		1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EPUBViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6C5AF223BF3C8900A3DE04 /* EPUBViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBViewerUITests.swift; sourceTree = "<group>"; };
 		1E6C5AF423BF3C8900A3DE04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuickLookPreview.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E781A6E23C87AB5005DA32D /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		1E781A7123C87AB5005DA32D /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		1E781A7423C87AB5005DA32D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1E781A7623C87AB5005DA32D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1EC261D923C5892000E99DBB /* EPUBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EPUBViewer.entitlements; sourceTree = "<group>"; };
+		1EE16B6323CEF9B800E1FA37 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		1EE16B6523CF070000E1FA37 /* EPUBReaderWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderWebViewController.swift; sourceTree = "<group>"; };
+		1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		1EF2458C23CDCF2900FA1C6A /* QuickLookPreview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickLookPreview.entitlements; sourceTree = "<group>"; };
+		1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderPageViewController.swift; sourceTree = "<group>"; };
+		1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EPUBReaderPageViewController+SwiftUI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */,
+				1E2F96F023D013D800A6CD79 /* EPUBKitDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +149,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1E781A6923C87AB5005DA32D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E2F96ED23D013CF00A6CD79 /* EPUBKitDynamic in Frameworks */,
+				1E781A6F23C87AB5005DA32D /* QuickLook.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -84,6 +167,8 @@
 				1E6C5ACD23BF3C8700A3DE04 /* EPUBViewer */,
 				1E6C5AE623BF3C8900A3DE04 /* EPUBViewerTests */,
 				1E6C5AF123BF3C8900A3DE04 /* EPUBViewerUITests */,
+				1E781A7023C87AB5005DA32D /* QuickLookPreview */,
+				1E781A6D23C87AB5005DA32D /* Frameworks */,
 				1E6C5ACC23BF3C8700A3DE04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,6 +179,7 @@
 				1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */,
 				1E6C5AE323BF3C8900A3DE04 /* EPUBViewerTests.xctest */,
 				1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */,
+				1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,12 +189,18 @@
 			children = (
 				1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */,
 				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
-				1E6C5AD223BF3C8700A3DE04 /* DocumentView.swift */,
-				1E6C5AD423BF3C8700A3DE04 /* Document.swift */,
+				1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */,
+				1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */,
+				1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */,
+				1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */,
+				1EE16B6523CF070000E1FA37 /* EPUBReaderWebViewController.swift */,
+				1EE16B6323CEF9B800E1FA37 /* WebViewController.swift */,
+				1EEC3AD623CD5A0B008BA69D /* ProgressHUD */,
 				1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */,
 				1E6C5AD923BF3C8900A3DE04 /* Assets.xcassets */,
 				1E6C5ADB23BF3C8900A3DE04 /* LaunchScreen.storyboard */,
 				1E6C5ADE23BF3C8900A3DE04 /* Info.plist */,
+				1EC261D923C5892000E99DBB /* EPUBViewer.entitlements */,
 			);
 			path = EPUBViewer;
 			sourceTree = "<group>";
@@ -131,6 +223,35 @@
 			path = EPUBViewerUITests;
 			sourceTree = "<group>";
 		};
+		1E781A6D23C87AB5005DA32D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E2F96E723D0137300A6CD79 /* EPUBKit */,
+				1E781A6E23C87AB5005DA32D /* QuickLook.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		1E781A7023C87AB5005DA32D /* QuickLookPreview */ = {
+			isa = PBXGroup;
+			children = (
+				1EF2458C23CDCF2900FA1C6A /* QuickLookPreview.entitlements */,
+				1E781A7123C87AB5005DA32D /* PreviewViewController.swift */,
+				1E781A7323C87AB5005DA32D /* MainInterface.storyboard */,
+				1E781A7623C87AB5005DA32D /* Info.plist */,
+			);
+			path = QuickLookPreview;
+			sourceTree = "<group>";
+		};
+		1EEC3AD623CD5A0B008BA69D /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */,
+				1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,12 +262,19 @@
 				1E6C5AC723BF3C8700A3DE04 /* Sources */,
 				1E6C5AC823BF3C8700A3DE04 /* Frameworks */,
 				1E6C5AC923BF3C8700A3DE04 /* Resources */,
+				1E781A7D23C87AB5005DA32D /* Embed App Extensions */,
+				1EF4963E23CD85BB00B7376B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1E781A7823C87AB5005DA32D /* PBXTargetDependency */,
 			);
 			name = EPUBViewer;
+			packageProductDependencies = (
+				1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */,
+				1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */,
+			);
 			productName = EPUBViewer;
 			productReference = 1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +315,27 @@
 			productReference = 1E6C5AEE23BF3C8900A3DE04 /* EPUBViewerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1E781A6B23C87AB5005DA32D /* QuickLookPreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E781A7A23C87AB5005DA32D /* Build configuration list for PBXNativeTarget "QuickLookPreview" */;
+			buildPhases = (
+				1E781A6823C87AB5005DA32D /* Sources */,
+				1E781A6923C87AB5005DA32D /* Frameworks */,
+				1E781A6A23C87AB5005DA32D /* Resources */,
+				1EF4964223CD85C400B7376B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickLookPreview;
+			packageProductDependencies = (
+				1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */,
+			);
+			productName = QuickLookPreview;
+			productReference = 1E781A6C23C87AB5005DA32D /* QuickLookPreview.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -208,6 +357,9 @@
 						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 1E6C5ACA23BF3C8700A3DE04;
 					};
+					1E781A6B23C87AB5005DA32D = {
+						CreatedOnToolsVersion = 11.3;
+					};
 				};
 			};
 			buildConfigurationList = 1E6C5AC623BF3C8600A3DE04 /* Build configuration list for PBXProject "EPUBViewer" */;
@@ -219,6 +371,9 @@
 				Base,
 			);
 			mainGroup = 1E6C5AC223BF3C8600A3DE04;
+			packageReferences = (
+				1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+			);
 			productRefGroup = 1E6C5ACC23BF3C8700A3DE04 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -226,6 +381,7 @@
 				1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */,
 				1E6C5AE223BF3C8900A3DE04 /* EPUBViewerTests */,
 				1E6C5AED23BF3C8900A3DE04 /* EPUBViewerUITests */,
+				1E781A6B23C87AB5005DA32D /* QuickLookPreview */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +411,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1E781A6A23C87AB5005DA32D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E781A7523C87AB5005DA32D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -262,9 +426,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E6C5AD523BF3C8700A3DE04 /* Document.swift in Sources */,
+				1EE16B6623CF070000E1FA37 /* EPUBReaderWebViewController.swift in Sources */,
+				1EF4965523CDB7B400B7376B /* EPUBReaderPageViewController.swift in Sources */,
+				1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */,
+				1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */,
+				1EE16B6423CEF9B800E1FA37 /* WebViewController.swift in Sources */,
+				1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
-				1E6C5AD323BF3C8700A3DE04 /* DocumentView.swift in Sources */,
+				1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */,
+				1EF4965723CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift in Sources */,
 				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +455,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1E781A6823C87AB5005DA32D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E781A7223C87AB5005DA32D /* PreviewViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -297,6 +475,11 @@
 			isa = PBXTargetDependency;
 			target = 1E6C5ACA23BF3C8700A3DE04 /* EPUBViewer */;
 			targetProxy = 1E6C5AEF23BF3C8900A3DE04 /* PBXContainerItemProxy */;
+		};
+		1E781A7823C87AB5005DA32D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E781A6B23C87AB5005DA32D /* QuickLookPreview */;
+			targetProxy = 1E781A7723C87AB5005DA32D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -315,6 +498,14 @@
 				1E6C5ADC23BF3C8900A3DE04 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1E781A7323C87AB5005DA32D /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E781A7423C87AB5005DA32D /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -437,8 +628,11 @@
 		1E6C5AF823BF3C8900A3DE04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EPUBViewer/EPUBViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
 				INFOPLIST_FILE = EPUBViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -447,6 +641,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -455,8 +650,11 @@
 		1E6C5AF923BF3C8900A3DE04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EPUBViewer/EPUBViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
 				INFOPLIST_FILE = EPUBViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -465,6 +663,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -554,6 +753,50 @@
 			};
 			name = Release;
 		};
+		1E781A7B23C87AB5005DA32D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickLookPreview/QuickLookPreview.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = QuickLookPreview/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer.QuickLookPreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1E781A7C23C87AB5005DA32D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickLookPreview/QuickLookPreview.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = 83XZ8ZBS6L;
+				INFOPLIST_FILE = QuickLookPreview/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.sinoru.EPUBViewer.QuickLookPreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -593,7 +836,43 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1E781A7A23C87AB5005DA32D /* Build configuration list for PBXNativeTarget "QuickLookPreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E781A7B23C87AB5005DA32D /* Debug */,
+				1E781A7C23C87AB5005DA32D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E19B4B023CC6FA900CFE2F3 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+		1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EPUBKitDynamic;
+		};
+		1E2F96EF23D013D800A6CD79 /* EPUBKitDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EPUBKitDynamic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1E6C5AC323BF3C8600A3DE04 /* Project object */;
 }

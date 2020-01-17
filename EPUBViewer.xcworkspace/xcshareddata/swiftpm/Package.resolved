@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "JGProgressHUD",
+        "repositoryURL": "https://github.com/JonasGessner/JGProgressHUD.git",
+        "state": {
+          "branch": null,
+          "revision": "08d130dd614a743f813286f096804c43a6ffa3f6",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "Minizip",
+        "repositoryURL": "https://github.com/sinoru/minizip.git",
+        "state": {
+          "branch": "9f7e70eb",
+          "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
+          "version": null
+        }
+      },
+      {
+        "package": "SNFoundation",
+        "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "291d1056e1e64288ce8d5e1e90efadff67b578d3",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

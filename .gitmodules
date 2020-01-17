@@ -1,0 +1,3 @@
+[submodule "EPUBViewer/Frameworks/EPUBKit"]
+	path = EPUBViewer/Frameworks/EPUBKit
+	url = https://github.com/sinoru/EPUBKit.git
