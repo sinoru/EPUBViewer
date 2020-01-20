@@ -16,30 +16,38 @@ class EPUBReaderPageViewController: UIViewController {
     typealias WebViewController = EPUBReaderWebViewController
     typealias PageViewController = UIPageViewController
 
-    var epubPageCoordinatorSubscription: AnyCancellable?
-    var epub: EPUB? {
-        didSet {
-            guard epub !== oldValue else {
-                return
+    private var epubMetadataObservation: AnyCancellable?
+    private var epubPageCoordinatorSubscription: AnyCancellable?
+    
+    let epub: EPUB
+
+    init(epub: EPUB) {
+        self.epub = epub
+        super.init(nibName: nil, bundle: nil)
+
+        self.epubMetadataObservation = epub.$metadata
+            .sink { [weak self](metadata) in
+                self?.title = metadata?.title
             }
 
-            self.epubPageCoordinatorSubscription = epub?.pageCoordinator.pagePositionsPublisher
-                .map(\.first)
-                .compactMap({ $0 })
-                .prefix(2)
-                .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
-                .sink(receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        self.epubPageCoordinatorSubscription = nil
-                        self.loadWebViewControllers()
-                    case .failure(let error):
-                        debugPrint(error)
-                    }
-                }, receiveValue: { (_) in })
+        self.epubPageCoordinatorSubscription = epub.pageCoordinator.pagePositionsPublisher
+            .map(\.first)
+            .compactMap({ $0 })
+            .prefix(2)
+            .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .finished:
+                    self.epubPageCoordinatorSubscription = nil
+                    self.loadWebViewControllers()
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }, receiveValue: { (_) in })
+    }
 
-            self.loadWebViewControllers()
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private lazy var pageViewController: PageViewController = {
@@ -80,19 +88,21 @@ class EPUBReaderPageViewController: UIViewController {
         ])
 
         loadWebViewControllers()
+
+        edgesForExtendedLayout = .init()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        self.epub?.pageCoordinator.pageSize = .init(width: size.width / 2, height: size.height)
+        self.epub.pageCoordinator.pageSize = .init(width: size.width / 2, height: size.height)
         updateWebViewControllers()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        self.epub?.pageCoordinator.pageSize = .init(width: view.bounds.size.width / 2, height: view.bounds.size.height)
+        self.epub.pageCoordinator.pageSize = .init(width: view.bounds.size.width / 2, height: view.bounds.size.height)
         updateWebViewControllers()
     }
 
@@ -105,7 +115,6 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         guard
-            let epub = epub,
             let pageViewControllers = pageViewController.viewControllers as? [WebViewController]
         else {
             pageViewController.setViewControllers(nil, direction: .forward, animated: false)
@@ -228,7 +237,6 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         guard
-            let epub = epub,
             case .normal = epub.state,
             let pagePositions = try? epub.pageCoordinator.pagePositions.get(),
             pagePositions.count > 2

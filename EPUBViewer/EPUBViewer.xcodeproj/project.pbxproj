@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E19926923D5A3320036FF08 /* EPUBReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */; };
 		1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */; };
-		1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */; };
 		1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */; };
 		1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */; };
 		1E2F96ED23D013CF00A6CD79 /* EPUBKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1E2F96EC23D013CF00A6CD79 /* EPUBKitDynamic */; };
@@ -30,7 +30,6 @@
 		1EE16B6623CF070000E1FA37 /* EPUBReaderWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE16B6523CF070000E1FA37 /* EPUBReaderWebViewController.swift */; };
 		1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */; };
 		1EF4965523CDB7B400B7376B /* EPUBReaderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */; };
-		1EF4965723CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +93,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderViewController.swift; sourceTree = "<group>"; };
 		1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBPreviewView.swift; sourceTree = "<group>"; };
-		1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderView.swift; sourceTree = "<group>"; };
 		1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUDController.swift; sourceTree = "<group>"; };
 		1E2F96E723D0137300A6CD79 /* EPUBKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EPUBKit; sourceTree = "<group>"; };
 		1E6C5ACB23BF3C8700A3DE04 /* EPUBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPUBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,7 +121,6 @@
 		1EEC3AD723CD5A1E008BA69D /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		1EF2458C23CDCF2900FA1C6A /* QuickLookPreview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickLookPreview.entitlements; sourceTree = "<group>"; };
 		1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderPageViewController.swift; sourceTree = "<group>"; };
-		1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EPUBReaderPageViewController+SwiftUI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,9 +188,8 @@
 				1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */,
 				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
 				1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */,
-				1E19B4AC23CC1F9A00CFE2F3 /* EPUBReaderView.swift */,
+				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
 				1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */,
-				1EF4965623CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift */,
 				1EE16B6523CF070000E1FA37 /* EPUBReaderWebViewController.swift */,
 				1EE16B6323CEF9B800E1FA37 /* WebViewController.swift */,
 				1EEC3AD623CD5A0B008BA69D /* ProgressHUD */,
@@ -433,9 +430,8 @@
 				1EE16B6423CEF9B800E1FA37 /* WebViewController.swift in Sources */,
 				1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
-				1E19B4AD23CC1F9A00CFE2F3 /* EPUBReaderView.swift in Sources */,
-				1EF4965723CDB92100B7376B /* EPUBReaderPageViewController+SwiftUI.swift in Sources */,
 				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,
+				1E19926923D5A3320036FF08 /* EPUBReaderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
