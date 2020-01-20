@@ -48,7 +48,7 @@ class EPUBReaderViewController: UINavigationController {
         openEPUB()
     }
 
-    @objc
+    @IBAction
     func close() {
         dismissHandler()
     }
@@ -85,6 +85,11 @@ class EPUBReaderViewController: UINavigationController {
         }
     }
 
+    @IBAction
+    func presentOptions() {
+        
+    }
+
     /*
     // MARK: - Navigation
 
@@ -100,6 +105,11 @@ class EPUBReaderViewController: UINavigationController {
 
 extension EPUBReaderViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        viewController.navigationItem.leftBarButtonItem = .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
+        viewController.navigationItem.leftBarButtonItems = [
+            .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
+        ]
+        viewController.navigationItem.rightBarButtonItems = [
+            .init(title: "Options", style: .plain, target: self, action: #selector(self.presentOptions))
+        ]
     }
 }
