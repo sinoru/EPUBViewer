@@ -132,9 +132,6 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        debugPrint(nextWebViewControllers)
-        debugPrint(pageViewController.viewControllers)
-
         nextWebViewControllers.removeAll(where: {
             guard let webViewController = $0 else {
                 return false
