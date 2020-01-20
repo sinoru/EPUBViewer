@@ -60,6 +60,7 @@ class EPUBReaderWebViewController: UIViewController {
 
         webViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webViewController.view.frame = view.bounds
+        webViewController.view.backgroundColor = .clear
         view.addSubview(webViewController.view)
     }
 
