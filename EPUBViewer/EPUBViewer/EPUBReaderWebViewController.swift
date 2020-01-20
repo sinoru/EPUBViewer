@@ -99,6 +99,15 @@ class EPUBReaderWebViewController: UIViewController {
 }
 
 extension EPUBReaderWebViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        switch navigationAction.navigationType {
+        case .other, .reload:
+            decisionHandler(.allow)
+        default:
+            decisionHandler(.cancel)
+        }
+    }
+
     @objc
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if let position = position {
