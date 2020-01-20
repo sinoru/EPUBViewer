@@ -27,7 +27,7 @@ class EPUBReaderPageViewController: UIViewController {
 
         self.epubMetadataObservation = epub.$metadata
             .sink { [weak self](metadata) in
-                self?.title = metadata?.title
+                self?.title = [metadata?.creator, metadata?.title].compactMap { $0 }.joined(separator: " - ")
             }
 
         self.epubPageCoordinatorSubscription = epub.pageCoordinator.pagePositionsPublisher
