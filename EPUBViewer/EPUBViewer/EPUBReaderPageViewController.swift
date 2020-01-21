@@ -13,16 +13,19 @@ import Combine
 
 class EPUBReaderPageViewController: UIViewController {
     static let pageBufferSize = 1
-    typealias WebViewController = EPUBReaderWebViewController
+    typealias WebViewController = EPUBReaderPageWebViewController
     typealias PageViewController = UIPageViewController
 
     private var epubMetadataObservation: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
     
     let epub: EPUB
+    let epubPageCoordinator: EPUB.PageCoordinator
 
     init(epub: EPUB) {
         self.epub = epub
+        self.epubPageCoordinator = epub.newPageCoordinator()
+
         super.init(nibName: nil, bundle: nil)
 
         self.epubMetadataObservation = epub.$metadata
@@ -30,7 +33,7 @@ class EPUBReaderPageViewController: UIViewController {
                 self?.title = [metadata?.creator, metadata?.title].compactMap { $0 }.joined(separator: " - ")
             }
 
-        self.epubPageCoordinatorSubscription = epub.pageCoordinator.pagePositionsPublisher
+        self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
             .map(\.first)
             .compactMap({ $0 })
             .prefix(2)
@@ -95,14 +98,14 @@ class EPUBReaderPageViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        self.epub.pageCoordinator.pageSize = .init(width: size.width / 2, height: size.height)
+        self.epubPageCoordinator.pageSize = .init(width: size.width / 2, height: size.height)
         updateWebViewControllers()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        self.epub.pageCoordinator.pageSize = .init(width: view.bounds.size.width / 2, height: view.bounds.size.height)
+        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width / 2, height: view.bounds.size.height)
         updateWebViewControllers()
     }
 
@@ -122,7 +125,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         pageViewControllers.enumerated().forEach {
-            $0.element.pageCoordinator = epub.pageCoordinator
+            $0.element.pageCoordinator = epubPageCoordinator
             $0.element.page = currentPages[$0.offset]
         }
     }
@@ -156,7 +159,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         guard
-            let lastPosition = lastViewController.position,
+            let lastPosition = lastViewController.webViewController.position,
             let pageCoordinator = lastPosition.coordinator,
             let pagePositions = try? pageCoordinator.pagePositions.get(),
             var lastPage = pagePositions.estimatedIndex(of: lastPosition)
@@ -198,7 +201,7 @@ class EPUBReaderPageViewController: UIViewController {
         guard
             let currentViewControllers = pageViewController.viewControllers as? [WebViewController],
             let firstViewController = currentViewControllers.first,
-            let firstPosition = firstViewController.position,
+            let firstPosition = firstViewController.webViewController.position,
             let pageCoordinator = firstPosition.coordinator,
             let pagePositions = try? pageCoordinator.pagePositions.get(),
             var firstPage = pagePositions.estimatedIndex(of: firstPosition)
@@ -238,7 +241,7 @@ class EPUBReaderPageViewController: UIViewController {
 
         guard
             case .normal = epub.state,
-            let pagePositions = try? epub.pageCoordinator.pagePositions.get(),
+            let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             pagePositions.count > 2
         else {
             pageViewController.setViewControllers(nil, direction: .forward, animated: false)

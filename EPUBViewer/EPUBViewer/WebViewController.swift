@@ -21,7 +21,7 @@ class WebViewController: UIViewController {
         return webView
     }()
 
-    init(configuration: WKWebViewConfiguration) {
+    required init(configuration: WKWebViewConfiguration = .init()) {
         self.webViewConfiguration = configuration
         super.init(nibName: nil, bundle: nil)
     }

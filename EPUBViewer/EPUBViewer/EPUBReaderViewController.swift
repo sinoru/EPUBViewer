@@ -20,7 +20,7 @@ class EPUBReaderViewController: UINavigationController {
         self.epub = epub
         self.dismissHandler = dismiss
 
-        super.init(rootViewController: EPUBReaderPageViewController(epub: epub))
+        super.init(rootViewController: EPUBReaderScrollingTableViewController(epub: epub))
 
         self.delegate = self
         self.epubStateObservation = epub.$state
