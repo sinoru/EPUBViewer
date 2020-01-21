@@ -47,6 +47,8 @@ class EPUBReaderPageViewController: UIViewController {
                     debugPrint(error)
                 }
             }, receiveValue: { (_) in })
+
+        self.loadWebViewControllers()
     }
 
     required init?(coder: NSCoder) {

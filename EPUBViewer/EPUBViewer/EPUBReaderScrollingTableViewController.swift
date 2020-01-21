@@ -57,35 +57,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
                     debugPrint(error)
                 }
             }, receiveValue: { (pagePositions) in
-                var snapshot = self.dataSource.snapshot()
-
-                Section.allCases.difference(from: snapshot.sectionIdentifiers).forEach {
-                    switch $0 {
-                    case .insert(let offset, let element, _):
-                        if offset == snapshot.sectionIdentifiers.count {
-                            snapshot.appendSections([element])
-                        } else {
-                            snapshot.insertSections([element], beforeSection: snapshot.sectionIdentifiers[offset])
-                        }
-                    case .remove(_, let element, _):
-                        snapshot.deleteSections([element])
-                    }
-                }
-
-                pagePositions.difference(from: snapshot.itemIdentifiers).forEach {
-                    switch $0 {
-                    case .insert(let offset, let element, _):
-                        if offset == snapshot.itemIdentifiers.count {
-                            snapshot.appendItems([element])
-                        } else {
-                            snapshot.insertItems([element], beforeItem: snapshot.itemIdentifiers[offset])
-                        }
-                    case .remove(_, let element, _):
-                        snapshot.deleteItems([element])
-                    }
-                }
-
-                self.dataSource.apply(snapshot)
+                self.updateDataSource(with: pagePositions)
             })
     }
 
@@ -104,6 +76,8 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
         tableView.dataSource = dataSource
+
+        updateDataSource()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -122,5 +96,43 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return dataSource.itemIdentifier(for: indexPath)?.pageSize.height ?? 0
+    }
+
+    // MARK: -
+
+    func updateDataSource(with pagePositions: [EPUB.PagePosition]? = nil) {
+        guard let pagePositions = pagePositions ?? (try? self.epubPageCoordinator.pagePositions.get()) else {
+            return
+        }
+
+        var snapshot = self.dataSource.snapshot()
+
+        Section.allCases.difference(from: snapshot.sectionIdentifiers).forEach {
+            switch $0 {
+            case .insert(let offset, let element, _):
+                if offset == snapshot.sectionIdentifiers.count {
+                    snapshot.appendSections([element])
+                } else {
+                    snapshot.insertSections([element], beforeSection: snapshot.sectionIdentifiers[offset])
+                }
+            case .remove(_, let element, _):
+                snapshot.deleteSections([element])
+            }
+        }
+
+        pagePositions.difference(from: snapshot.itemIdentifiers).forEach {
+            switch $0 {
+            case .insert(let offset, let element, _):
+                if offset == snapshot.itemIdentifiers.count {
+                    snapshot.appendItems([element])
+                } else {
+                    snapshot.insertItems([element], beforeItem: snapshot.itemIdentifiers[offset])
+                }
+            case .remove(_, let element, _):
+                snapshot.deleteItems([element])
+            }
+        }
+
+        self.dataSource.apply(snapshot)
     }
 }
