@@ -11,8 +11,6 @@ import WebKit
 import EPUBKit
 
 class EPUBReaderWebViewController: WebViewController, ObservableObject {
-    static let processPool = WKProcessPool()
-
     @Published private(set) var isLoading: Bool = false
 
     var position: EPUB.PagePosition? {
@@ -32,8 +30,6 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     }
 
     required init(configuration: WKWebViewConfiguration) {
-        configuration.processPool = Self.processPool
-        
         super.init(configuration: configuration)
 
         webView.configuration.userContentController.add(self, name: "$")
