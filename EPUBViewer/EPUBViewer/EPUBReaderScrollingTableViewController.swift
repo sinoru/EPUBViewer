@@ -20,6 +20,18 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     private var epubMetadataObservation: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
 
+    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { (tableView, indexPath, pagePosition) -> UITableViewCell? in
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
+            fatalError()
+        }
+
+        // Configure the cell...
+        self.addChild(cell.webViewController)
+        cell.pagePosition = pagePosition
+
+        return cell
+    }
+
     let epub: EPUB
     let epubPageCoordinator: EPUB.PageCoordinator
 
@@ -42,8 +54,36 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
                 case .failure(let error):
                     debugPrint(error)
                 }
-            }, receiveValue: { _ in
-                self.tableView.reloadData()
+            }, receiveValue: { (pagePositions) in
+                var snapshot = self.dataSource.snapshot()
+
+                Section.allCases.difference(from: snapshot.sectionIdentifiers).forEach {
+                    switch $0 {
+                    case .insert(let offset, let element, _):
+                        if offset == snapshot.sectionIdentifiers.count {
+                            snapshot.appendSections([element])
+                        } else {
+                            snapshot.insertSections([element], beforeSection: snapshot.sectionIdentifiers[offset])
+                        }
+                    case .remove(_, let element, _):
+                        snapshot.deleteSections([element])
+                    }
+                }
+
+                pagePositions.difference(from: snapshot.itemIdentifiers).forEach {
+                    switch $0 {
+                    case .insert(let offset, let element, _):
+                        if offset == snapshot.itemIdentifiers.count {
+                            snapshot.appendItems([element])
+                        } else {
+                            snapshot.insertItems([element], beforeItem: snapshot.itemIdentifiers[offset])
+                        }
+                    case .remove(_, let element, _):
+                        snapshot.deleteItems([element])
+                    }
+                }
+
+                self.dataSource.apply(snapshot)
             })
     }
 
@@ -61,6 +101,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
+        tableView.dataSource = dataSource
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -78,78 +119,6 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     // MARK: - UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return ((try? epubPageCoordinator.pagePositions.get())?[indexPath.row])
-            .flatMap { $0.itemRef }
-            .flatMap { try? epubPageCoordinator.spineItemHeightForRef($0) } ?? 0
+        return dataSource.itemIdentifier(for: indexPath)?.pageSize.height ?? 0
     }
-
-    // MARK: - Table view data source
-
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-    */
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (try? epubPageCoordinator.pagePositions.get().count) ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
-            fatalError()
-        }
-
-        // Configure the cell...
-        cell.pagePosition = (try? epubPageCoordinator.pagePositions.get())?[indexPath.row]
-
-        return cell
-    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -12,7 +12,7 @@ import EPUBKit
 import Combine
 
 class EPUBReaderScrollingTableViewCell: UITableViewCell {
-    private lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
+    lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
 
     var pagePosition: EPUB.PagePosition? {
         didSet {
@@ -40,23 +40,5 @@ class EPUBReaderScrollingTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-
-    override func willMove(toSuperview newSuperview: UIView?) {
-        var nextResponder = newSuperview?.next
-        var viewController: UIViewController?
-        while let responder = nextResponder {
-            nextResponder = responder.next
-
-            if let nextResponder = nextResponder as? UIViewController {
-                viewController = nextResponder
-                break
-            }
-        }
-
-        if viewController != webViewController.parent {
-            webViewController.removeFromParent()
-            viewController?.addChild(webViewController)
-        }
     }
 }
