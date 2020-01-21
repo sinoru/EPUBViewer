@@ -15,7 +15,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     @Published private(set) var isLoading: Bool = false
 
-    var pageCoordinator: EPUB.PageCoordinator?
+    weak var pageCoordinator: EPUB.PageCoordinator?
     var position: EPUB.PagePosition? {
         didSet {
             isLoading = true

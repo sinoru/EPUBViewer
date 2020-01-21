@@ -47,8 +47,6 @@ class EPUBReaderPageViewController: UIViewController {
                     debugPrint(error)
                 }
             }, receiveValue: { (_) in })
-
-        self.loadWebViewControllers()
     }
 
     required init?(coder: NSCoder) {
@@ -92,22 +90,20 @@ class EPUBReaderPageViewController: UIViewController {
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
-        loadWebViewControllers()
-
         edgesForExtendedLayout = .init()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width, height: .greatestFiniteMagnitude)
+        loadWebViewControllers()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         self.epubPageCoordinator.pageSize = .init(width: size.width / 2, height: size.height)
-        updateWebViewControllers()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width / 2, height: view.bounds.size.height)
         updateWebViewControllers()
     }
 
