@@ -10,6 +10,8 @@
 		1E16BCB423D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */; };
 		1E16BCB623D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */; };
 		1E16BCB823D695DA001EAB2A /* EPUBReaderWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */; };
+		1E16BCBC23D6DB87001EAB2A /* EPUBReaderOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCBB23D6DB87001EAB2A /* EPUBReaderOptionsView.swift */; };
+		1E16BCBE23D6DCC6001EAB2A /* EPUBReaderOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCBD23D6DCC6001EAB2A /* EPUBReaderOptions.swift */; };
 		1E19926923D5A3320036FF08 /* EPUBReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */; };
 		1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */; };
 		1E19B4B223CC6FA900CFE2F3 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1E19B4B123CC6FA900CFE2F3 /* JGProgressHUD */; };
@@ -99,6 +101,8 @@
 		1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderScrollingTableViewController.swift; sourceTree = "<group>"; };
 		1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderScrollingTableViewCell.swift; sourceTree = "<group>"; };
 		1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderWebViewController.swift; sourceTree = "<group>"; };
+		1E16BCBB23D6DB87001EAB2A /* EPUBReaderOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderOptionsView.swift; sourceTree = "<group>"; };
+		1E16BCBD23D6DCC6001EAB2A /* EPUBReaderOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderOptions.swift; sourceTree = "<group>"; };
 		1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderViewController.swift; sourceTree = "<group>"; };
 		1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBPreviewView.swift; sourceTree = "<group>"; };
 		1E19B4B323CC700500CFE2F3 /* ProgressHUDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUDController.swift; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
 				1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */,
 				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
+				1E16BCBD23D6DCC6001EAB2A /* EPUBReaderOptions.swift */,
+				1E16BCBB23D6DB87001EAB2A /* EPUBReaderOptionsView.swift */,
 				1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */,
 				1EE16B6523CF070000E1FA37 /* EPUBReaderPageWebViewController.swift */,
 				1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */,
@@ -441,7 +447,9 @@
 				1E19B4B423CC700500CFE2F3 /* ProgressHUDController.swift in Sources */,
 				1EE16B6423CEF9B800E1FA37 /* WebViewController.swift in Sources */,
 				1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */,
+				1E16BCBC23D6DB87001EAB2A /* EPUBReaderOptionsView.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
+				1E16BCBE23D6DCC6001EAB2A /* EPUBReaderOptions.swift in Sources */,
 				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,
 				1E19926923D5A3320036FF08 /* EPUBReaderViewController.swift in Sources */,
 			);

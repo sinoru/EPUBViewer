@@ -14,9 +14,10 @@ import Combine
 class EPUBReaderScrollingTableViewCell: UITableViewCell {
     lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
 
-    var pagePosition: EPUB.PagePosition? {
+    var pagePositionInfo: (EPUB.PageCoordinator, EPUB.PagePosition)? {
         didSet {
-            webViewController.position = pagePosition
+            webViewController.pageCoordinator = pagePositionInfo?.0
+            webViewController.position = pagePositionInfo?.1
         }
     }
 

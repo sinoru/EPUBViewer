@@ -9,11 +9,28 @@
 import UIKit
 import EPUBKit
 import Combine
+import SwiftUI
 
 class EPUBReaderViewController: UINavigationController {
     let epub: EPUB
     let dismissHandler: () -> Void
 
+    private var options: EPUBReaderOptions = .init() {
+        didSet {
+            if options.readerMode != oldValue.readerMode {
+                let viewController: UIViewController = {
+                    switch options.readerMode {
+                    case .pageCurl:
+                        return EPUBReaderPageViewController(epub: epub)
+                    case .scroll:
+                        return EPUBReaderScrollingTableViewController(epub: epub)
+                    }
+                }()
+
+                self.setViewControllers([viewController], animated: true)
+            }
+        }
+    }
     private var epubStateObservation: AnyCancellable?
 
     init(epub: EPUB, dismiss: @escaping () -> Void) {
@@ -86,8 +103,16 @@ class EPUBReaderViewController: UINavigationController {
     }
 
     @IBAction
-    func presentOptions() {
-        
+    func presentOptions(_ sender: UIBarButtonItem?) {
+        let epubReaderOptionsView = EPUBReaderOptionsView(
+            options: .init(get: { self.options }, set: { self.options = $0 })
+        )
+
+        let epubReaderOptionsViewController = UIHostingController(rootView: epubReaderOptionsView)
+        epubReaderOptionsViewController.modalPresentationStyle = .popover
+        epubReaderOptionsViewController.popoverPresentationController?.barButtonItem = sender
+
+        self.present(epubReaderOptionsViewController, animated: true, completion: nil)
     }
 
     /*

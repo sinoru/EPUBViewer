@@ -17,6 +17,7 @@ class EPUBReaderPageWebViewController: UIViewController {
     var pageCoordinator: EPUB.PageCoordinator?
     var page: Int? {
         didSet {
+            webViewController.pageCoordinator = pageCoordinator
             webViewController.position = page.flatMap { pageCoordinator.flatMap { try? $0.pagePositions.get() }?[$0] }
         }
     }

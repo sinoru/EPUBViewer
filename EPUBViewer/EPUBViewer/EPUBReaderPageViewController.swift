@@ -160,8 +160,7 @@ class EPUBReaderPageViewController: UIViewController {
 
         guard
             let lastPosition = lastViewController.webViewController.position,
-            let pageCoordinator = lastPosition.coordinator,
-            let pagePositions = try? pageCoordinator.pagePositions.get(),
+            let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             var lastPage = pagePositions.estimatedIndex(of: lastPosition)
         else {
             nextWebViewControllers.removeAll()
@@ -178,7 +177,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            webViewController.pageCoordinator = pageCoordinator
+            webViewController.pageCoordinator = epubPageCoordinator
             webViewController.page = pagePositions.index(after: lastPage)
             lastPage = pagePositions.index(after: lastPage)
         }
@@ -202,8 +201,7 @@ class EPUBReaderPageViewController: UIViewController {
             let currentViewControllers = pageViewController.viewControllers as? [WebViewController],
             let firstViewController = currentViewControllers.first,
             let firstPosition = firstViewController.webViewController.position,
-            let pageCoordinator = firstPosition.coordinator,
-            let pagePositions = try? pageCoordinator.pagePositions.get(),
+            let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             var firstPage = pagePositions.estimatedIndex(of: firstPosition)
         else {
             reusableWebViewControllers += previousWebViewControllers.compactMap({ $0 })
@@ -228,7 +226,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            webViewController.pageCoordinator = pageCoordinator
+            webViewController.pageCoordinator = epubPageCoordinator
             webViewController.page = pagePositions.index(before: firstPage)
             firstPage = pagePositions.index(before: firstPage)
         }

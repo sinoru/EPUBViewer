@@ -15,13 +15,15 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     @Published private(set) var isLoading: Bool = false
 
+    var pageCoordinator: EPUB.PageCoordinator?
     var position: EPUB.PagePosition? {
         didSet {
             isLoading = true
 
             guard
                 let position = self.position,
-                position.coordinator == oldValue?.coordinator && position.itemRef == oldValue?.itemRef
+                position.pageSize == oldValue?.pageSize,
+                position.itemRef == oldValue?.itemRef
             else {
                 loadEPUBItem()
                 return
@@ -51,7 +53,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     private func loadEPUBItem() {
         guard
-            let pageCoordinator = position?.coordinator,
+            let pageCoordinator = pageCoordinator,
             let epubResourceURL = pageCoordinator.epub.resourceURL,
             let epubItem = (position?.itemRef).flatMap({ pageCoordinator.epub.items?[$0] })
         else {

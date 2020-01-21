@@ -27,7 +27,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         // Configure the cell...
         self.addChild(cell.webViewController)
-        cell.pagePosition = pagePosition
+        cell.pagePositionInfo = (self.epubPageCoordinator, pagePosition)
 
         return cell
     }
@@ -47,6 +47,8 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
             }
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
+            .removeDuplicates()
+            .throttle(for: .milliseconds(500), scheduler: RunLoop.main, latest: true)
             .sink(receiveCompletion: { (completion) in
                 switch completion {
                 case .finished:
