@@ -10,9 +10,7 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    var webViewConfiguration: WKWebViewConfiguration {
-        return WKWebViewConfiguration()
-    }
+    private(set) var webViewConfiguration: WKWebViewConfiguration = WKWebViewConfiguration()
 
     lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: self.webViewConfiguration)
@@ -22,6 +20,15 @@ class WebViewController: UIViewController {
 
         return webView
     }()
+
+    required init(configuration: WKWebViewConfiguration = .init()) {
+        self.webViewConfiguration = configuration
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = webView

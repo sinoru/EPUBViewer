@@ -14,6 +14,9 @@ class ProgressHUDController: UIViewController {
         self.progressHUD = JGProgressHUD(style: style.jgProgressHUDStyle)
 
         super.init(nibName: nil, bundle: nil)
+
+        self.modalTransitionStyle = .crossDissolve
+        self.modalPresentationStyle = .overCurrentContext
     }
 
     required init?(coder: NSCoder) {
@@ -24,9 +27,6 @@ class ProgressHUDController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.modalTransitionStyle = .crossDissolve
-        self.modalPresentationStyle = .overCurrentContext
     }
 
     override func viewWillAppear(_ animated: Bool) {

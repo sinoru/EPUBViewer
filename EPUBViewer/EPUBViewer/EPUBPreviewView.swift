@@ -73,6 +73,7 @@ extension EPUBPreviewView {
                 }
                 Spacer()
                 Button("Open", action: open)
+                Spacer()
             }
             .navigationBarTitle(filename)
             .navigationBarItems(trailing: Button("Done", action: dismiss))

@@ -20,11 +20,20 @@
         }
       },
       {
+        "package": "Shinjuku",
+        "repositoryURL": "https://github.com/sinoru/Shinjuku.git",
+        "state": {
+          "branch": null,
+          "revision": "9870c26a60bbec70cc9900985672516c008b9a5a",
+          "version": null
+        }
+      },
+      {
         "package": "SNFoundation",
         "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
         "state": {
           "branch": null,
-          "revision": "291d1056e1e64288ce8d5e1e90efadff67b578d3",
+          "revision": "a19d1627ed46ac123fcd79d187f47cb589b96a02",
           "version": null
         }
       }

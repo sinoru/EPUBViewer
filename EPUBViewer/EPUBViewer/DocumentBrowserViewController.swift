@@ -84,14 +84,14 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
 
     func openEPUB(_ epub: EPUB) {
-        let epubReaderViewController = UIHostingController(rootView: {
-            EPUBReaderView(dismiss: {
+        let epubReaderViewController = EPUBReaderViewController(
+            epub: epub,
+            dismiss: {
                 self.dismiss(animated: true)
             })
-            .environmentObject(epub)
-        }())
         epubReaderViewController.modalPresentationStyle = .fullScreen
-        self.present(epubReaderViewController, animated: true, completion: nil)
+
+        self.present(epubReaderViewController, animated: true)
     }
 
     // MAKR: -
