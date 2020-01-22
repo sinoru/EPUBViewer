@@ -35,7 +35,9 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     required init(configuration: WKWebViewConfiguration) {
         configuration.processPool = Self.processPool
-        
+        configuration.userContentController.addUserScript(
+            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+
         super.init(configuration: configuration)
 
         webView.configuration.userContentController.add(self, name: "$")
