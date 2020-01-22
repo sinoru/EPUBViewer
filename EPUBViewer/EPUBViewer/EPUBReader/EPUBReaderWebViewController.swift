@@ -37,10 +37,14 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
         configuration.processPool = Self.processPool
         configuration.userContentController.addUserScript(
             .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        configuration.userContentController.addUserScript(
+            .init(source: """
+                $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />');
+            """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
 
         super.init(configuration: configuration)
 
-        webView.configuration.userContentController.add(self, name: "$")
+        webView.configuration.userContentController.add(self.weakScriptMessageHandler, name: "$")
     }
 
     required init?(coder: NSCoder) {
