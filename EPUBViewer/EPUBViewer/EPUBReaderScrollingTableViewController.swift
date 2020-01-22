@@ -20,13 +20,17 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     private var epubMetadataObservation: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
 
+    private var prefetchedWebViewControllers = [IndexPath: EPUBReaderWebViewController]()
+
     lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self](tableView, indexPath, pagePosition) -> UITableViewCell? in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
             fatalError()
         }
 
         // Configure the cell...
-        self.addChild(cell.webViewController)
+        cell.webViewController = self.prefetchedWebViewControllers[indexPath] ?? cell.webViewController ?? EPUBReaderWebViewController(configuration: .init())
+        self.prefetchedWebViewControllers[indexPath] = nil
+        
         cell.pagePositionInfo = (self.epubPageCoordinator, pagePosition)
 
         return cell
@@ -76,6 +80,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
         tableView.dataSource = dataSource
+        tableView.prefetchDataSource = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +100,22 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return dataSource.itemIdentifier(for: indexPath)?.pageSize.height ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
+            return
+        }
+
+        cell.webViewController.flatMap { addChild($0) }
+    }
+
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
+            return
+        }
+
+        cell.webViewController?.removeFromParent()
     }
 
     // MARK: -
@@ -133,5 +154,29 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         }
 
         self.dataSource.apply(snapshot)
+    }
+}
+
+extension EPUBReaderScrollingTableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.map { (key: $0, value: dataSource.itemIdentifier(for: $0)) }
+            .forEach {
+                guard let pagePositionInfo = $0.value else {
+                    return
+                }
+
+                let webViewController = EPUBReaderWebViewController(configuration: .init())
+                webViewController.view.frame = tableView.bounds
+                webViewController.pageCoordinator = self.epubPageCoordinator
+                webViewController.position = pagePositionInfo
+
+                prefetchedWebViewControllers[$0.key] = webViewController
+            }
+    }
+
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            prefetchedWebViewControllers.removeValue(forKey: $0)
+        }
     }
 }
