@@ -47,7 +47,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         self.epubMetadataObservation = epub.$metadata
             .sink { [unowned self](metadata) in
-                self.title = [metadata?.creator, metadata?.title].compactMap { $0 }.joined(separator: " - ")
+                self.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher

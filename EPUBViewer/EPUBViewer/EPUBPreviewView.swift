@@ -20,8 +20,8 @@ struct EPUBPreviewView: View {
     var body: some View {
         NavigationView {
             ContentsView(
-                title: epub.metadata?.title,
-                creator: epub.metadata?.creator,
+                title: epub.metadata.title,
+                creator: epub.metadata.creator,
                 filename: epub.epubFileURL.lastPathComponent,
                 dismiss: dismiss,
                 open: open
