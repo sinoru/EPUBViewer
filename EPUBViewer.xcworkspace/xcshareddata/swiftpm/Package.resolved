@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "CMinizip",
+        "repositoryURL": "https://github.com/sinoru/CMinizip.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "643b65416e605ed95daa99b52c478bceb25290d2",
+          "version": "2.9.1"
+        }
+      },
+      {
         "package": "JGProgressHUD",
         "repositoryURL": "https://github.com/JonasGessner/JGProgressHUD.git",
         "state": {
           "branch": null,
           "revision": "08d130dd614a743f813286f096804c43a6ffa3f6",
           "version": "2.1.0"
-        }
-      },
-      {
-        "package": "Minizip",
-        "repositoryURL": "https://github.com/sinoru/minizip.git",
-        "state": {
-          "branch": "9f7e70eb",
-          "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
-          "version": null
         }
       },
       {
