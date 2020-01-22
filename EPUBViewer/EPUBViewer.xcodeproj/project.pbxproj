@@ -198,14 +198,7 @@
 				1E6C5ACE23BF3C8700A3DE04 /* AppDelegate.swift */,
 				1E6C5AD023BF3C8700A3DE04 /* DocumentBrowserViewController.swift */,
 				1E19B4AA23CC0AB300CFE2F3 /* EPUBPreviewView.swift */,
-				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
-				1E16BCBD23D6DCC6001EAB2A /* EPUBReaderOptions.swift */,
-				1E16BCBB23D6DB87001EAB2A /* EPUBReaderOptionsView.swift */,
-				1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */,
-				1EE16B6523CF070000E1FA37 /* EPUBReaderPageWebViewController.swift */,
-				1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */,
-				1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */,
-				1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */,
+				1EAA35A223D82EE0006089D5 /* EPUBReader */,
 				1EE16B6323CEF9B800E1FA37 /* WebViewController.swift */,
 				1EEC3AD623CD5A0B008BA69D /* ProgressHUD */,
 				1E6C5AD623BF3C8700A3DE04 /* Main.storyboard */,
@@ -253,6 +246,45 @@
 				1E781A7623C87AB5005DA32D /* Info.plist */,
 			);
 			path = QuickLookPreview;
+			sourceTree = "<group>";
+		};
+		1EAA35A223D82EE0006089D5 /* EPUBReader */ = {
+			isa = PBXGroup;
+			children = (
+				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
+				1EAA35A323D82EEC006089D5 /* Options */,
+				1EAA35A423D82EF8006089D5 /* PageCurl */,
+				1EAA35A523D82F03006089D5 /* Scroll */,
+				1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */,
+			);
+			path = EPUBReader;
+			sourceTree = "<group>";
+		};
+		1EAA35A323D82EEC006089D5 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				1E16BCBD23D6DCC6001EAB2A /* EPUBReaderOptions.swift */,
+				1E16BCBB23D6DB87001EAB2A /* EPUBReaderOptionsView.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		1EAA35A423D82EF8006089D5 /* PageCurl */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4965423CDB7B400B7376B /* EPUBReaderPageViewController.swift */,
+				1EE16B6523CF070000E1FA37 /* EPUBReaderPageWebViewController.swift */,
+			);
+			path = PageCurl;
+			sourceTree = "<group>";
+		};
+		1EAA35A523D82F03006089D5 /* Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */,
+				1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */,
+			);
+			path = Scroll;
 			sourceTree = "<group>";
 		};
 		1EEC3AD623CD5A0B008BA69D /* ProgressHUD */ = {
