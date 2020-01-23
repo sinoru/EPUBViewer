@@ -180,3 +180,42 @@ extension EPUBReaderScrollingTableViewController: UITableViewDataSourcePrefetchi
         }
     }
 }
+
+extension EPUBReaderScrollingTableViewController: EPUBReaderNavigatable {
+    func navigate(to tocItem: EPUB.TOC.Item) {
+        guard let epubItem = epub.items[tocItem.epubItemURL] else {
+            return
+        }
+
+        guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
+            return
+        }
+
+        guard let pagePosition = pagePositions.first(where: { (pagePosition) in
+            pagePosition.itemRef == epubItem.ref &&
+                tocItem.epubItemURL.fragment.flatMap {
+                    pagePosition.contentInfo?.contentYOffsetsByID[$0] != nil
+                } ?? true
+        }) else {
+            return
+        }
+
+        guard let spineIndex = epub.spine.itemRefs.firstIndex(of: pagePosition.itemRef) else {
+            return
+        }
+
+        guard let itemContentInfos = try? epub.spine.itemRefs.lazy.map({ try epubPageCoordinator.itemContentInfoForRef($0) }) else {
+            return
+        }
+
+        let previousItemHeights = itemContentInfos[(0..<spineIndex)].reduce(0, { $0 + ($1?.contentSize.height ?? 0) })
+        let currentItemContentOffsetY = tocItem.epubItemURL.fragment.flatMap {
+            pagePosition.contentInfo?.contentYOffsetsByID[$0]
+        } ?? pagePosition.contentYOffset
+
+        tableView.setContentOffset(.init(
+            x: 0,
+            y: previousItemHeights + currentItemContentOffsetY - tableView.adjustedContentInset.top
+        ), animated: true)
+    }
+}
