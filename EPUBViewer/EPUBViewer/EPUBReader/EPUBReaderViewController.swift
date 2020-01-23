@@ -105,6 +105,10 @@ class EPUBReaderViewController: UINavigationController {
     @IBAction
     func presentTOC(_ sender: UIBarButtonItem?) {
         let epubReaderTOCView = EPUBReaderTOCView() { (toc) in
+            if let navigatableReader = self.topViewController as? EPUBReaderNavigatable {
+                navigatableReader.navigate(to: toc)
+            }
+            
             self.dismiss(animated: true)
         }.environmentObject(epub)
 

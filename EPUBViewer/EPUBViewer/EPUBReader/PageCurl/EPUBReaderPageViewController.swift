@@ -320,3 +320,27 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         return webViewController
     }
 }
+
+extension EPUBReaderPageViewController: EPUBReaderNavigatable {
+    func navigate(to tocItem: EPUB.TOC.Item) {
+        guard let epubItem = epub.items[tocItem.epubItemURL] else {
+            return
+        }
+
+        guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
+            return
+        }
+
+        guard let pagePositionIndex = pagePositions.firstIndex(where: { (pagePosition) in
+            pagePosition.itemRef == epubItem.ref &&
+                tocItem.epubItemURL.fragment.flatMap {
+                    pagePosition.contentInfo?.contentYOffsetsByID[$0] != nil
+                } ?? true
+        }) else {
+            return
+        }
+
+        currentPages = (pagePositionIndex % 2 == 0) ? [pagePositionIndex, pagePositionIndex + 1] : [pagePositionIndex - 1, pagePositionIndex]
+        updateWebViewControllers()
+    }
+}
