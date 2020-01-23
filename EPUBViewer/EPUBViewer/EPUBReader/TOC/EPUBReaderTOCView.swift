@@ -12,10 +12,16 @@ import EPUBKit
 struct EPUBReaderTOCView: View {
     @EnvironmentObject var epub: EPUB
 
+    var didSelect: (EPUB.TOC.Item) -> Void
+
     var body: some View {
         epub.toc.flatMap { (toc) in
             List(toc.flattenKeyPaths(), id: \.playOrder) { (depth, _, keyPath) in
-                EPUBReaderTOCRowView(depth: depth, name: toc[keyPath: keyPath].name)
+                Button(action: {
+                    self.didSelect(toc[keyPath: keyPath])
+                }) {
+                    EPUBReaderTOCRowView(depth: depth, name: toc[keyPath: keyPath].name)
+                }
             }
         }
     }

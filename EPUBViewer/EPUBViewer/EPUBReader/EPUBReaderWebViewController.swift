@@ -67,7 +67,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
             return
         }
 
-        webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.relativePath), allowingReadAccessTo: epubResourceURL)
+        webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.url.relativePath), allowingReadAccessTo: epubResourceURL)
     }
 
     func setWebViewContentOffset(_ offset: CGPoint) {

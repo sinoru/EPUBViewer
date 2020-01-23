@@ -104,8 +104,9 @@ class EPUBReaderViewController: UINavigationController {
 
     @IBAction
     func presentTOC(_ sender: UIBarButtonItem?) {
-        let epubReaderTOCView = EPUBReaderTOCView()
-            .environmentObject(epub)
+        let epubReaderTOCView = EPUBReaderTOCView() { (toc) in
+            self.dismiss(animated: true)
+        }.environmentObject(epub)
 
         let epubReaderTOCViewController = UIHostingController(rootView: epubReaderTOCView)
         epubReaderTOCViewController.modalPresentationStyle = .popover
