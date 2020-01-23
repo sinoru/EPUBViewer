@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		195E12A523D93C89004ED2B1 /* EPUBReaderTOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195E12A423D93C89004ED2B1 /* EPUBReaderTOCView.swift */; };
+		195E12A723D9418C004ED2B1 /* EPUBReaderTOCRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195E12A623D9418C004ED2B1 /* EPUBReaderTOCRowView.swift */; };
 		1E16BCB423D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */; };
 		1E16BCB623D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */; };
 		1E16BCB823D695DA001EAB2A /* EPUBReaderWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */; };
@@ -98,6 +100,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		195E12A423D93C89004ED2B1 /* EPUBReaderTOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderTOCView.swift; sourceTree = "<group>"; };
+		195E12A623D9418C004ED2B1 /* EPUBReaderTOCRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderTOCRowView.swift; sourceTree = "<group>"; };
 		1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderScrollingTableViewController.swift; sourceTree = "<group>"; };
 		1E16BCB523D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderScrollingTableViewCell.swift; sourceTree = "<group>"; };
 		1E16BCB723D695DA001EAB2A /* EPUBReaderWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderWebViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +173,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		195E12A323D93C71004ED2B1 /* TOC */ = {
+			isa = PBXGroup;
+			children = (
+				195E12A423D93C89004ED2B1 /* EPUBReaderTOCView.swift */,
+				195E12A623D9418C004ED2B1 /* EPUBReaderTOCRowView.swift */,
+			);
+			path = TOC;
+			sourceTree = "<group>";
+		};
 		1E6C5AC223BF3C8600A3DE04 = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
+				195E12A323D93C71004ED2B1 /* TOC */,
 				1EAA35A323D82EEC006089D5 /* Options */,
 				1EAA35A423D82EF8006089D5 /* PageCurl */,
 				1EAA35A523D82F03006089D5 /* Scroll */,
@@ -473,6 +487,7 @@
 				1E16BCB423D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift in Sources */,
 				1EE16B6623CF070000E1FA37 /* EPUBReaderPageWebViewController.swift in Sources */,
 				1EF4965523CDB7B400B7376B /* EPUBReaderPageViewController.swift in Sources */,
+				195E12A523D93C89004ED2B1 /* EPUBReaderTOCView.swift in Sources */,
 				1E19B4AB23CC0AB300CFE2F3 /* EPUBPreviewView.swift in Sources */,
 				1E16BCB823D695DA001EAB2A /* EPUBReaderWebViewController.swift in Sources */,
 				1E16BCB623D69521001EAB2A /* EPUBReaderScrollingTableViewCell.swift in Sources */,
@@ -482,6 +497,7 @@
 				1E16BCBC23D6DB87001EAB2A /* EPUBReaderOptionsView.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
 				1E16BCBE23D6DCC6001EAB2A /* EPUBReaderOptions.swift in Sources */,
+				195E12A723D9418C004ED2B1 /* EPUBReaderTOCRowView.swift in Sources */,
 				1E6C5ACF23BF3C8700A3DE04 /* AppDelegate.swift in Sources */,
 				1E19926923D5A3320036FF08 /* EPUBReaderViewController.swift in Sources */,
 			);
