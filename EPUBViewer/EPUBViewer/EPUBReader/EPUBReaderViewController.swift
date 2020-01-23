@@ -103,6 +103,18 @@ class EPUBReaderViewController: UINavigationController {
     }
 
     @IBAction
+    func presentTOC(_ sender: UIBarButtonItem?) {
+        let epubReaderTOCView = EPUBReaderTOCView()
+            .environmentObject(epub)
+
+        let epubReaderTOCViewController = UIHostingController(rootView: epubReaderTOCView)
+        epubReaderTOCViewController.modalPresentationStyle = .popover
+        epubReaderTOCViewController.popoverPresentationController?.barButtonItem = sender
+
+        self.present(epubReaderTOCViewController, animated: true)
+    }
+
+    @IBAction
     func presentOptions(_ sender: UIBarButtonItem?) {
         let epubReaderOptionsView = EPUBReaderOptionsView(
             options: .init(get: { self.options }, set: { self.options = $0 })
@@ -131,7 +143,8 @@ class EPUBReaderViewController: UINavigationController {
 extension EPUBReaderViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.leftBarButtonItems = [
-            .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
+            .init(barButtonSystemItem: .close, target: self, action: #selector(self.close)),
+            .init(title: "TOC", style: .plain, target: self, action: #selector(self.presentTOC))
         ]
         viewController.navigationItem.rightBarButtonItems = [
             .init(title: "Options", style: .plain, target: self, action: #selector(self.presentOptions))

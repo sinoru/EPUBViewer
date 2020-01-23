@@ -14,7 +14,7 @@ struct EPUBReaderTOCRowView: View {
 
     var body: some View {
         Text(name)
-            .padding(.leading, CGFloat(depth) * 8)
+            .padding(.leading, CGFloat(depth) * 16)
     }
 }
 
