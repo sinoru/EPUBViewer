@@ -57,6 +57,7 @@ class EPUBReaderViewController: UINavigationController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         hidesBarsOnTap = true
+        isToolbarHidden = false
     }
 
     override func viewDidAppear(_ animated: Bool) {

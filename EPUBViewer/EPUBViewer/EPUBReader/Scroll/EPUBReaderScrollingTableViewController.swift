@@ -17,6 +17,9 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     static let cellReuseIdentifier = "Cell"
 
+    let epub: EPUB
+    let epubPageCoordinator: EPUB.PageCoordinator
+
     private var epubMetadataObservation: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
 
@@ -31,14 +34,20 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         cell.webViewController = self.prefetchedWebViewControllers[indexPath] ?? cell.webViewController ?? EPUBReaderWebViewController(configuration: .init())
         self.prefetchedWebViewControllers[indexPath] = nil
         cell.webViewController?.readerNavigatable = self
-        
+
         cell.webViewController?.pagePositionInfo = (self.epubPageCoordinator, pagePosition)
 
         return cell
     }
 
-    let epub: EPUB
-    let epubPageCoordinator: EPUB.PageCoordinator
+    lazy var slider: UISlider = {
+        let slider = UISlider()
+
+        slider.addTarget(self, action: #selector(self.sliderValueDidChange), for: .valueChanged)
+        slider.isContinuous = false
+
+        return slider
+    }()
 
     init(epub: EPUB) {
         self.epub = epub
@@ -53,7 +62,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
             .removeDuplicates()
-            .throttle(for: .milliseconds(500), scheduler: RunLoop.main, latest: true)
+            .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
             .sink(receiveCompletion: { (completion) in
                 switch completion {
                 case .finished:
@@ -62,6 +71,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
                     debugPrint(error)
                 }
             }, receiveValue: { [unowned self](pagePositions) in
+                self.slider.maximumValue = Float(pagePositions.count)
                 self.updateDataSource(with: pagePositions)
             })
     }
@@ -82,6 +92,10 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = self
+
+        toolbarItems = [
+            .init(customView: slider)
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -156,6 +170,17 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         self.dataSource.apply(snapshot)
     }
+
+    @IBAction
+    func sliderValueDidChange(_ sender: UISlider) {
+        let page = Int(min(sender.value.rounded(), sender.maximumValue))
+
+        guard let pagePosition = try? epubPageCoordinator.pagePositions.get()[page] else {
+            return
+        }
+
+        navigate(to: pagePosition, fragment: nil)
+    }
 }
 
 extension EPUBReaderScrollingTableViewController: UITableViewDataSourcePrefetching {
@@ -197,6 +222,6 @@ extension EPUBReaderScrollingTableViewController: EPUBReaderNavigatable {
         } ?? pagePosition.contentYOffset
 
         tableView.contentOffset.y = previousItemHeights + currentItemContentOffsetY - tableView.adjustedContentInset.top
+        slider.value = Float((try? epubPageCoordinator.pagePositions.get().firstIndex(of: pagePosition)) ?? 0)
     }
 }
-

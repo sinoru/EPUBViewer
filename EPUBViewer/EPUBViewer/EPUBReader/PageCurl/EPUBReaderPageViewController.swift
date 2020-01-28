@@ -17,10 +17,20 @@ class EPUBReaderPageViewController: UIViewController {
     typealias PageViewController = UIPageViewController
 
     private var epubMetadataObservation: AnyCancellable?
+    private var epubPageCoordinatorFirstLoadSubscription: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
     
     let epub: EPUB
     let epubPageCoordinator: EPUB.PageCoordinator
+
+    lazy var slider: UISlider = {
+        let slider = UISlider()
+
+        slider.addTarget(self, action: #selector(self.sliderValueDidChange), for: .valueChanged)
+        slider.isContinuous = false
+
+        return slider
+    }()
 
     init(epub: EPUB) {
         self.epub = epub
@@ -34,6 +44,20 @@ class EPUBReaderPageViewController: UIViewController {
             }
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
+            .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }, receiveValue: { [unowned self](pagePositions) in
+                self.slider.maximumValue = Float(pagePositions.count)
+            })
+
+        self.epubPageCoordinatorFirstLoadSubscription = epubPageCoordinator.pagePositionsPublisher
+            .removeDuplicates()
             .map(\.first)
             .compactMap({ $0 })
             .prefix(2)
@@ -41,7 +65,7 @@ class EPUBReaderPageViewController: UIViewController {
             .sink(receiveCompletion: { (completion) in
                 switch completion {
                 case .finished:
-                    self.epubPageCoordinatorSubscription = nil
+                    self.epubPageCoordinatorFirstLoadSubscription = nil
                     self.loadWebViewControllers()
                 case .failure(let error):
                     debugPrint(error)
@@ -74,7 +98,11 @@ class EPUBReaderPageViewController: UIViewController {
         return (self.pageViewController.isDoubleSided ? Self.pageBufferSize * 2 : Self.pageBufferSize)
     }
 
-    private var currentPages: [Int] = []
+    private var currentPages: [Int] = [] {
+        didSet {
+            slider.value = Float(currentPages[0])
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +119,10 @@ class EPUBReaderPageViewController: UIViewController {
         ])
 
         edgesForExtendedLayout = []
+
+        toolbarItems = [
+            .init(customView: slider)
+        ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -260,6 +292,16 @@ class EPUBReaderPageViewController: UIViewController {
         updateWebViewControllers()
     }
 
+    @IBAction
+    func sliderValueDidChange(_ sender: UISlider) {
+        let page = Int(min(sender.value.rounded(), sender.maximumValue))
+
+        guard let pagePosition = try? epubPageCoordinator.pagePositions.get()[page] else {
+            return
+        }
+
+        navigate(to: pagePosition, fragment: nil)
+    }
 }
 
 extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
@@ -312,7 +354,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updateNextWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = nextWebViewControllers.firstIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == $0.pageInfo?.1 }) else {
+            guard let currentIndex = nextWebViewControllers.firstIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 }) else {
                 return nextWebViewControllers.first
             }
 
