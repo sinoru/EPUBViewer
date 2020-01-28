@@ -39,16 +39,8 @@ class EPUBReaderScrollingTableViewCell: UITableViewCell {
         }
     }
 
-    var pagePositionInfo: (EPUB.PageCoordinator, EPUB.PagePosition)? {
-        didSet {
-            webViewController?.pagePositionInfo = pagePositionInfo
-        }
-    }
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-
     }
 
     required init?(coder: NSCoder) {

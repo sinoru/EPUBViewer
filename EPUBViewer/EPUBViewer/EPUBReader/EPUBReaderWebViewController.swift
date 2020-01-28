@@ -16,6 +16,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     @Published private(set) var isLoading: Bool = false
 
+    weak var readerNavigatable: (NSObjectProtocol & EPUBReaderNavigatable)?
     var pagePositionInfo: (EPUB.PageCoordinator, EPUB.PagePosition)? {
         didSet {
             isLoading = true
@@ -119,6 +120,45 @@ extension EPUBReaderWebViewController {
                 return
         }
 
+        guard let pagePositionInfo = pagePositionInfo else {
+            decisionHandler(.cancel)
+            return
+        }
+
+        let pageCoordinator = pagePositionInfo.0
+        let epub = pageCoordinator.epub
+
+        guard let epubResourceURL = epub.resourceURL else {
+            decisionHandler(.cancel)
+            return
+        }
+
+        guard let item = epub.items.first(where: { URL(fileURLWithPath: $0.url.relativePath, relativeTo: epubResourceURL).path == targetURL.path }) else {
+            decisionHandler(.cancel)
+            return
+        }
+
+        guard let pagePositions = try? pageCoordinator.pagePositions.get() else {
+            decisionHandler(.cancel)
+            return
+        }
+
+        guard let pagePosition = pagePositions.lazy
+            .filter({ $0.itemRef == item.ref })
+            .first(where: {
+                if let fragment = targetURL.fragment {
+                    return $0.contentInfo.contentYOffsetsByID.contains(where: { $0.key == fragment })
+                } else {
+                    return true
+                }
+            }) else {
+                decisionHandler(.cancel)
+                return
+        }
+
+        debugPrint(pagePosition)
+        debugPrint(targetURL.fragment)
+        readerNavigatable?.navigate(to: pagePosition, fragment: targetURL.fragment)
         decisionHandler(.cancel)
     }
 

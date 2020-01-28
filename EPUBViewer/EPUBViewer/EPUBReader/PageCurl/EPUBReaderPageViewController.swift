@@ -129,6 +129,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         pageViewControllers.enumerated().forEach {
+            $0.element.readerNavigatable = self
             $0.element.pageInfo = (epubPageCoordinator, currentPages[$0.offset])
         }
     }
@@ -180,6 +181,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
+            webViewController.readerNavigatable = self
             webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(after: lastPage))
             lastPage = pagePositions.index(after: lastPage)
         }
@@ -228,6 +230,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
+            webViewController.readerNavigatable = self
             webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(before: firstPage))
             firstPage = pagePositions.index(before: firstPage)
         }
@@ -325,21 +328,12 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
 }
 
 extension EPUBReaderPageViewController: EPUBReaderNavigatable {
-    func navigate(to tocItem: EPUB.TOC.Item) {
-        guard let epubItem = epub.items[tocItem.epubItemURL] else {
-            return
-        }
-
+    func navigate(to pagePosition: EPUB.PagePosition, fragment: String?) {
         guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
             return
         }
 
-        guard let pagePositionIndex = pagePositions.firstIndex(where: { (pagePosition) in
-            pagePosition.itemRef == epubItem.ref &&
-                tocItem.epubItemURL.fragment.flatMap {
-                    pagePosition.contentInfo?.contentYOffsetsByID[$0] != nil
-                } ?? true
-        }) else {
+        guard let pagePositionIndex = pagePositions.firstIndex(of: pagePosition) else {
             return
         }
 

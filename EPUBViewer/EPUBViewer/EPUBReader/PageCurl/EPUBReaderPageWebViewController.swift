@@ -14,6 +14,11 @@ import Combine
 class EPUBReaderPageWebViewController: UIViewController {
     private(set) lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
 
+    weak var readerNavigatable: (NSObjectProtocol & EPUBReaderNavigatable)? {
+        didSet {
+            webViewController.readerNavigatable = readerNavigatable
+        }
+    }
     var pageInfo: (EPUB.PageCoordinator, Int)? {
         didSet {
             webViewController.pagePositionInfo = pageInfo
