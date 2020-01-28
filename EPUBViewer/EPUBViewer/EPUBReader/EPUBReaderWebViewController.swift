@@ -111,6 +111,11 @@ extension EPUBReaderWebViewController {
             return
         }
 
+        guard originalURL.scheme != "about" else {
+            decisionHandler(.allow)
+            return
+        }
+
         guard
             originalURL.scheme == targetURL.scheme,
             originalURL.host == targetURL.host,

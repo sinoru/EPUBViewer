@@ -289,7 +289,6 @@ class EPUBReaderPageViewController: UIViewController {
             let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             pagePositions.count > pageSize
         else {
-            pageViewController.setViewControllers((0..<pageSize).map { (_) in WebViewController() }, direction: .forward, animated: false)
             return
         }
 
@@ -324,6 +323,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
                 (pageViewController.viewControllers?[0]).flatMap { [$0, WebViewController()] } ?? (0..<pageSize).map { (_) in WebViewController() },
                 direction: .forward,
                 animated: true)
+            updateWebViewControllers()
 
             return .mid
         default:
@@ -332,6 +332,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
                 (pageViewController.viewControllers?[0]).flatMap { [$0] } ?? (0..<pageSize).map { (_) in WebViewController() },
                 direction: .forward,
                 animated: true)
+            updateWebViewControllers()
 
             return .min
         }
