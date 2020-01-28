@@ -215,14 +215,16 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            guard pagePositions.indices.contains(pagePositions.index(after: lastPage)) else {
+            let nextPage = pagePositions.index(after: lastPage)
+
+            guard pagePositions.indices.contains(nextPage) else {
                 nextWebViewControllers[index] = nil
                 return
             }
 
             webViewController.readerNavigatable = self
-            webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(after: lastPage))
-            lastPage = pagePositions.index(after: lastPage)
+            webViewController.pageInfo = (epubPageCoordinator, nextPage)
+            lastPage = nextPage
         }
     }
 
@@ -263,15 +265,17 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            guard pagePositions.indices.contains(pagePositions.index(before: firstPage)) else {
+            let previousPage = pagePositions.index(before: firstPage)
+
+            guard pagePositions.indices.contains(previousPage) else {
                 reusableWebViewControllers += [previousWebViewControllers[index]].compactMap { $0 }
                 previousWebViewControllers[index] = nil
                 return
             }
 
             webViewController.readerNavigatable = self
-            webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(before: firstPage))
-            firstPage = pagePositions.index(before: firstPage)
+            webViewController.pageInfo = (epubPageCoordinator, previousPage)
+            firstPage = previousPage
         }
     }
 
