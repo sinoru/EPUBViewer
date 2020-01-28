@@ -206,7 +206,7 @@ extension EPUBReaderScrollingTableViewController: UITableViewDataSourcePrefetchi
     }
 }
 
-extension EPUBReaderScrollingTableViewController: EPUBReaderNavigatable {
+extension EPUBReaderScrollingTableViewController: EPUBReaderPageNavigatable {
     func navigate(to pagePosition: EPUB.PagePosition, fragment: String?) {
         guard let spineIndex = epub.spine.itemRefs.firstIndex(of: pagePosition.itemRef) else {
             return

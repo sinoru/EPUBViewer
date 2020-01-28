@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		193E32D923D9866C00102F5B /* EPUBReaderNavigatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E32D823D9866C00102F5B /* EPUBReaderNavigatable.swift */; };
+		193E32D923D9866C00102F5B /* EPUBReaderPageNavigatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E32D823D9866C00102F5B /* EPUBReaderPageNavigatable.swift */; };
 		195E12A523D93C89004ED2B1 /* EPUBReaderTOCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195E12A423D93C89004ED2B1 /* EPUBReaderTOCView.swift */; };
 		195E12A723D9418C004ED2B1 /* EPUBReaderTOCRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195E12A623D9418C004ED2B1 /* EPUBReaderTOCRowView.swift */; };
 		1E16BCB423D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */; };
@@ -101,7 +101,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		193E32D823D9866C00102F5B /* EPUBReaderNavigatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderNavigatable.swift; sourceTree = "<group>"; };
+		193E32D823D9866C00102F5B /* EPUBReaderPageNavigatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderPageNavigatable.swift; sourceTree = "<group>"; };
 		195E12A423D93C89004ED2B1 /* EPUBReaderTOCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderTOCView.swift; sourceTree = "<group>"; };
 		195E12A623D9418C004ED2B1 /* EPUBReaderTOCRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderTOCRowView.swift; sourceTree = "<group>"; };
 		1E16BCB323D692E2001EAB2A /* EPUBReaderScrollingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBReaderScrollingTableViewController.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				1E19926823D5A3320036FF08 /* EPUBReaderViewController.swift */,
-				193E32D823D9866C00102F5B /* EPUBReaderNavigatable.swift */,
+				193E32D823D9866C00102F5B /* EPUBReaderPageNavigatable.swift */,
 				195E12A323D93C71004ED2B1 /* TOC */,
 				1EAA35A323D82EEC006089D5 /* Options */,
 				1EAA35A423D82EF8006089D5 /* PageCurl */,
@@ -498,7 +498,7 @@
 				1EE16B6423CEF9B800E1FA37 /* WebViewController.swift in Sources */,
 				1EEC3AD823CD5A1E008BA69D /* ProgressHUD.swift in Sources */,
 				1E16BCBC23D6DB87001EAB2A /* EPUBReaderOptionsView.swift in Sources */,
-				193E32D923D9866C00102F5B /* EPUBReaderNavigatable.swift in Sources */,
+				193E32D923D9866C00102F5B /* EPUBReaderPageNavigatable.swift in Sources */,
 				1E6C5AD123BF3C8700A3DE04 /* DocumentBrowserViewController.swift in Sources */,
 				1E16BCBE23D6DCC6001EAB2A /* EPUBReaderOptions.swift in Sources */,
 				195E12A723D9418C004ED2B1 /* EPUBReaderTOCRowView.swift in Sources */,

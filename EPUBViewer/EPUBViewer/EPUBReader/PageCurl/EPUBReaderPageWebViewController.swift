@@ -14,7 +14,7 @@ import Combine
 class EPUBReaderPageWebViewController: UIViewController {
     private(set) lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
 
-    weak var readerNavigatable: (NSObjectProtocol & EPUBReaderNavigatable)? {
+    weak var readerNavigatable: (NSObjectProtocol & EPUBReaderPageNavigatable)? {
         didSet {
             webViewController.readerNavigatable = readerNavigatable
         }

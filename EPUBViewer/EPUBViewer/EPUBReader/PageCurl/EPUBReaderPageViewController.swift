@@ -369,7 +369,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension EPUBReaderPageViewController: EPUBReaderNavigatable {
+extension EPUBReaderPageViewController: EPUBReaderPageNavigatable {
     func navigate(to pagePosition: EPUB.PagePosition, fragment: String?) {
         guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
             return
