@@ -167,8 +167,7 @@ extension EPUBReaderScrollingTableViewController: UITableViewDataSourcePrefetchi
 
                 let webViewController = EPUBReaderWebViewController(configuration: .init())
                 webViewController.view.frame = tableView.bounds
-                webViewController.pageCoordinator = self.epubPageCoordinator
-                webViewController.position = pagePositionInfo
+                webViewController.pagePositionInfo = (self.epubPageCoordinator, pagePositionInfo)
 
                 prefetchedWebViewControllers[$0.key] = webViewController
             }

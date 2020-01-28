@@ -41,8 +41,7 @@ class EPUBReaderScrollingTableViewCell: UITableViewCell {
 
     var pagePositionInfo: (EPUB.PageCoordinator, EPUB.PagePosition)? {
         didSet {
-            webViewController?.pageCoordinator = pagePositionInfo?.0
-            webViewController?.position = pagePositionInfo?.1
+            webViewController?.pagePositionInfo = pagePositionInfo
         }
     }
 

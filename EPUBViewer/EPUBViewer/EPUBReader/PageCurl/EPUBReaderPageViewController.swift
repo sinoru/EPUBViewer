@@ -129,8 +129,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         pageViewControllers.enumerated().forEach {
-            $0.element.pageCoordinator = epubPageCoordinator
-            $0.element.page = currentPages[$0.offset]
+            $0.element.pageInfo = (epubPageCoordinator, currentPages[$0.offset])
         }
     }
 
@@ -163,7 +162,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         guard
-            let lastPosition = lastViewController.webViewController.position,
+            let lastPosition = lastViewController.webViewController.pagePositionInfo?.1,
             let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             var lastPage = pagePositions.estimatedIndex(of: lastPosition)
         else {
@@ -181,8 +180,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            webViewController.pageCoordinator = epubPageCoordinator
-            webViewController.page = pagePositions.index(after: lastPage)
+            webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(after: lastPage))
             lastPage = pagePositions.index(after: lastPage)
         }
     }
@@ -204,7 +202,7 @@ class EPUBReaderPageViewController: UIViewController {
         guard
             let currentViewControllers = pageViewController.viewControllers as? [WebViewController],
             let firstViewController = currentViewControllers.first,
-            let firstPosition = firstViewController.webViewController.position,
+            let firstPosition = firstViewController.webViewController.pagePositionInfo?.1,
             let pagePositions = try? epubPageCoordinator.pagePositions.get(),
             var firstPage = pagePositions.estimatedIndex(of: firstPosition)
         else {
@@ -230,8 +228,7 @@ class EPUBReaderPageViewController: UIViewController {
                 return
             }
 
-            webViewController.pageCoordinator = epubPageCoordinator
-            webViewController.page = pagePositions.index(before: firstPage)
+            webViewController.pageInfo = (epubPageCoordinator, pagePositions.index(before: firstPage))
             firstPage = pagePositions.index(before: firstPage)
         }
     }
@@ -273,7 +270,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
                 fatalError("previousViewControllers should be \([WebViewController].self)")
             }
 
-            currentPages = (pageViewController.viewControllers as? [WebViewController]).flatMap { $0.compactMap { $0.page } } ?? []
+            currentPages = (pageViewController.viewControllers as? [WebViewController]).flatMap { $0.compactMap { $0.pageInfo?.1 } } ?? []
             updateWebViewControllers(reusableWebViewControllers: previousViewControllers)
         }
     }
@@ -289,7 +286,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updatePreviousWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = previousWebViewControllers.lastIndex(where: { $0.page == viewController.page }) else {
+            guard let currentIndex = previousWebViewControllers.lastIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 }) else {
                 return previousWebViewControllers.last
             }
 
@@ -312,7 +309,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updateNextWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = nextWebViewControllers.firstIndex(where: { $0.page == viewController.page }) else {
+            guard let currentIndex = nextWebViewControllers.firstIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == $0.pageInfo?.1 }) else {
                 return nextWebViewControllers.first
             }
 

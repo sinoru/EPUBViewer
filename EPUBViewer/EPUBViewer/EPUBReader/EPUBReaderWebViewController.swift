@@ -15,21 +15,20 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     @Published private(set) var isLoading: Bool = false
 
-    weak var pageCoordinator: EPUB.PageCoordinator?
-    var position: EPUB.PagePosition? {
+    var pagePositionInfo: (EPUB.PageCoordinator, EPUB.PagePosition)? {
         didSet {
             isLoading = true
 
             guard
-                let position = self.position,
-                position.pageSize == oldValue?.pageSize,
-                position.itemRef == oldValue?.itemRef
+                let position = self.pagePositionInfo,
+                position.1.pageSize == oldValue?.1.pageSize,
+                position.1.itemRef == oldValue?.1.itemRef
             else {
                 loadEPUBItem()
                 return
             }
 
-            setWebViewContentOffset(.init(x: 0, y: position.contentYOffset))
+            setWebViewContentOffset(.init(x: 0, y: position.1.contentYOffset))
         }
     }
 
@@ -59,9 +58,9 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     private func loadEPUBItem() {
         guard
-            let pageCoordinator = pageCoordinator,
+            let pageCoordinator = pagePositionInfo?.0,
             let epubResourceURL = pageCoordinator.epub.resourceURL,
-            let epubItem = (position?.itemRef).flatMap({ pageCoordinator.epub.items[$0] })
+            let epubItem = (pagePositionInfo?.1.itemRef).flatMap({ pageCoordinator.epub.items[$0] })
         else {
             webView.load(URLRequest(url: URL(string:"about:blank")!))
             return
@@ -103,7 +102,7 @@ extension EPUBReaderWebViewController {
 
     @objc
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if let position = position {
+        if let position = pagePositionInfo?.1 {
             setWebViewContentOffset(.init(x: 0, y: position.contentYOffset))
         }
     }
