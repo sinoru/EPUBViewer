@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SafariServices
 import EPUBKit
 
 class EPUBReaderWebViewController: WebViewController, ObservableObject {
@@ -92,12 +93,33 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 extension EPUBReaderWebViewController {
     @objc
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        switch navigationAction.navigationType {
-        case .other, .reload:
-            decisionHandler(.allow)
-        default:
-            decisionHandler(.cancel)
+        guard
+            let originalURL = webView.url,
+            let targetURL = navigationAction.request.url else {
+                decisionHandler(.allow)
+                return
         }
+
+        guard navigationAction.targetFrame?.isMainFrame == true else {
+            decisionHandler(.allow)
+            return
+        }
+
+        guard originalURL != targetURL else {
+            decisionHandler(.allow)
+            return
+        }
+
+        guard
+            originalURL.scheme == targetURL.scheme,
+            originalURL.host == targetURL.host,
+            originalURL.port == targetURL.port else {
+                decisionHandler(.cancel)
+                present(SFSafariViewController(url: targetURL), animated: true)
+                return
+        }
+
+        decisionHandler(.cancel)
     }
 
     @objc
