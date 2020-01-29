@@ -53,7 +53,7 @@ class EPUBReaderPageViewController: UIViewController {
                     self.present(error: error)
                 }
             }, receiveValue: { [unowned self](pagePositions) in
-                self.slider.maximumValue = Float(pagePositions.count)
+                self.slider.maximumValue = Float(pagePositions.endIndex - 1)
             })
 
         self.epubPageCoordinatorFirstLoadSubscription = epubPageCoordinator.pagePositionsPublisher
@@ -304,13 +304,13 @@ class EPUBReaderPageViewController: UIViewController {
 
     @IBAction
     func sliderValueDidChange(_ sender: UISlider) {
-        let page = Int(min(sender.value.rounded(), sender.maximumValue))
-
-        guard let pagePosition = try? epubPageCoordinator.pagePositions.get()[page] else {
+        guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
             return
         }
 
-        navigate(to: pagePosition, fragment: nil)
+        let page = Int(max(min(Int(sender.value.rounded()), pagePositions.endIndex - 1), pagePositions.startIndex))
+
+        navigate(to: pagePositions[page], fragment: nil)
     }
 }
 
