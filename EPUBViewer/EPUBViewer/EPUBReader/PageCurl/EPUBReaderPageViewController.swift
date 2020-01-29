@@ -17,7 +17,6 @@ class EPUBReaderPageViewController: UIViewController {
     typealias PageViewController = UIPageViewController
 
     private var epubMetadataObservation: AnyCancellable?
-    private var epubPageCoordinatorFirstLoadSubscription: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
     
     let epub: EPUB
@@ -44,7 +43,9 @@ class EPUBReaderPageViewController: UIViewController {
             }
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
-            .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
+            .removeDuplicates()
+            .throttle(for: .milliseconds(100), scheduler: DispatchQueue.global(), latest: true)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self](completion) in
                 switch completion {
                 case .finished:
@@ -54,20 +55,7 @@ class EPUBReaderPageViewController: UIViewController {
                 }
             }, receiveValue: { [unowned self](pagePositions) in
                 self.slider.maximumValue = Float(pagePositions.endIndex - 1)
-            })
 
-        self.epubPageCoordinatorFirstLoadSubscription = epubPageCoordinator.pagePositionsPublisher
-            .removeDuplicates()
-            .map(\.count)
-            .delay(for: .milliseconds(100), scheduler: RunLoop.main)
-            .sink(receiveCompletion: { [unowned self](completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.present(error: error)
-                }
-            }, receiveValue: { [unowned self](count) in
                 if (self.pageViewController.viewControllers as? [WebViewController])?.first?.webViewController.pagePositionInfo == nil {
                     self.loadWebViewControllers()
                 }
