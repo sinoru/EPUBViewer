@@ -36,6 +36,15 @@
           "revision": "7cc9dfede144ef0d5e30a02eaeebbe67dd43e66c",
           "version": null
         }
+      },
+      {
+        "package": "SNUXKit",
+        "repositoryURL": "https://github.com/sinoru/SNUXKit.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "378e52e00802c4a18c6f2539e81c7b630ec7258f",
+          "version": null
+        }
       }
     ]
   },

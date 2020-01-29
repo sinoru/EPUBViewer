@@ -45,12 +45,12 @@ class EPUBReaderPageViewController: UIViewController {
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
             .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { [unowned self](completion) in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-                    debugPrint(error)
+                    self.present(error: error)
                 }
             }, receiveValue: { [unowned self](pagePositions) in
                 self.slider.maximumValue = Float(pagePositions.count)
@@ -60,12 +60,12 @@ class EPUBReaderPageViewController: UIViewController {
             .removeDuplicates()
             .map(\.count)
             .delay(for: .milliseconds(100), scheduler: RunLoop.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { [unowned self](completion) in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-                    debugPrint(error)
+                    self.present(error: error)
                 }
             }, receiveValue: { [unowned self](count) in
                 if (self.pageViewController.viewControllers as? [WebViewController])?.first?.webViewController.pagePositionInfo == nil {

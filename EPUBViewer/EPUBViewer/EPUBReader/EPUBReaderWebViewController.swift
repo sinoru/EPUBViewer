@@ -10,6 +10,7 @@ import UIKit
 import WebKit
 import SafariServices
 import EPUBKit
+import SNUXKit
 
 class EPUBReaderWebViewController: WebViewController, ObservableObject {
     static let processPool = WKProcessPool()
@@ -86,7 +87,9 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
                     break
             }
         """, completionHandler: { (_, error) in
-            debugPrint(error as Any)
+            if let error = error {
+                self.present(error: error)
+            }
         })
     }
 }
@@ -161,8 +164,6 @@ extension EPUBReaderWebViewController {
                 return
         }
 
-        debugPrint(pagePosition)
-        debugPrint(targetURL.fragment)
         readerNavigatable?.navigate(to: pagePosition, fragment: targetURL.fragment)
         decisionHandler(.cancel)
     }
@@ -176,12 +177,12 @@ extension EPUBReaderWebViewController {
 
     @objc
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        debugPrint(error)
+        present(error: error)
     }
 
     @objc
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        debugPrint(error)
+        present(error: error)
     }
 }
 
