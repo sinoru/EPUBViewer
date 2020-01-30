@@ -18,7 +18,7 @@ class EPUBReaderViewController: UINavigationController {
     private var options: EPUBReaderOptions = .init() {
         didSet {
             if options.readerMode != oldValue.readerMode {
-                let viewController: UIViewController = {
+                let viewController: (UIViewController & EPUBReaderPageNavigatable) = {
                     switch options.readerMode {
                     case .pageCurl:
                         return EPUBReaderPageViewController(epub: epub)
@@ -26,6 +26,10 @@ class EPUBReaderViewController: UINavigationController {
                         return EPUBReaderScrollingTableViewController(epub: epub)
                     }
                 }()
+
+                if let navigationInfo = (self.topViewController as? EPUBReaderPageNavigatable)?.navigationInfo {
+                    viewController.navigate(to: navigationInfo.epubItemRef, fragment: navigationInfo.fragment)
+                }
 
                 self.setViewControllers([viewController], animated: true)
             }

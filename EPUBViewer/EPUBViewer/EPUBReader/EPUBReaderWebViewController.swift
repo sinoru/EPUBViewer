@@ -35,13 +35,18 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
         }
     }
 
+    var itemRef: EPUB.Item.Ref? {
+        pagePositionInfo?.1.itemRef
+    }
+    private(set) var fragment: String?
+
     required init(configuration: WKWebViewConfiguration) {
         configuration.processPool = Self.processPool
         configuration.userContentController.addUserScript(
-            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: false))
         configuration.userContentController.addUserScript(
             .init(source: """
-                $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />');
+                $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />')
             """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
 
         super.init(configuration: configuration)
@@ -53,10 +58,24 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "$")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+
+    override func present(error: Error) -> Bool {
+        guard
+            let error = error as? URLError,
+            error.code != URLError.cancelled else {
+                return false
+        }
+
+        return super.present(error: error)
     }
 
     private func loadEPUBItem() {
@@ -74,15 +93,31 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
     func setWebViewContentOffset(_ offset: CGPoint) {
         webView.evaluateJavaScript("""
+            function windowDidLoad() {
+                if (location.href == "about:blank") {
+                    return
+                }
+
+                window.scrollTo(\(offset.x), \(offset.y))
+
+                const identifiableElements = $('*[id]')
+
+                const nearestElement = identifiableElements.filter((i, v) => v.getBoundingClientRect().y <= 0).sort((a, b) => Math.abs(a.getBoundingClientRect().y) - Math.abs(b.getBoundingClientRect().y)).get(0)
+
+                if (nearestElement != null) {
+                    window.webkit.messageHandlers.$.postMessage(["didScroll", nearestElement.id])
+                } else {
+                    window.webkit.messageHandlers.$.postMessage(["didScroll"])
+                }
+            }
+
             switch (document.readyState) {
                 case "complete":
-                    window.scrollTo(\(offset.x), \(offset.y))
-                    window.webkit.messageHandlers.$.postMessage(["didScroll"])
+                    windowDidLoad()
                     break
                 default:
                     window.addEventListener('load', (event) => {
-                        window.scrollTo(\(offset.x), \(offset.y))
-                        window.webkit.messageHandlers.$.postMessage(["didScroll"])
+                        windowDidLoad()
                     })
                     break
             }
@@ -195,6 +230,8 @@ extension EPUBReaderWebViewController: WKScriptMessageHandler {
         switch body.first as? String {
         case "didScroll"?:
             isLoading = false
+
+            fragment = body.indices.contains(1) ? body[1] as? String : nil
         default:
             break
         }

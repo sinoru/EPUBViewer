@@ -20,6 +20,21 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     let epub: EPUB
     let epubPageCoordinator: EPUB.PageCoordinator
 
+    var navigationInfo: (epubItemRef: EPUB.Item.Ref, fragment: String?)? {
+        guard let cell = tableView.visibleCells.first as? EPUBReaderScrollingTableViewCell else {
+            return nil
+        }
+
+        guard let epubItemRef = cell.webViewController?.itemRef else {
+            return nil
+        }
+
+        return (
+            epubItemRef: epubItemRef,
+            fragment: cell.webViewController?.fragment
+        )
+    }
+
     private var epubMetadataObservation: AnyCancellable?
     private var epubPageCoordinatorSubscription: AnyCancellable?
 
@@ -56,13 +71,15 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         super.init(style: .plain)
 
         self.epubMetadataObservation = epub.$metadata
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self](metadata) in
                 self.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
 
         self.epubPageCoordinatorSubscription = epubPageCoordinator.pagePositionsPublisher
             .removeDuplicates()
-            .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
+            .throttle(for: .milliseconds(100), scheduler: DispatchQueue.global(), latest: true)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self](completion) in
                 switch completion {
                 case .finished:
@@ -92,6 +109,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = self
+        tableView.separatorStyle = .none
 
         toolbarItems = [
             .init(customView: slider)
@@ -101,14 +119,14 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width, height: .greatestFiniteMagnitude)
+        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width, height: view.bounds.size.height)
         updateDataSource()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        self.epubPageCoordinator.pageSize = .init(width: size.width, height: .greatestFiniteMagnitude)
+        self.epubPageCoordinator.pageSize = .init(width: size.width, height: size.height)
     }
 
     // MARK: - UITableViewDelegate

@@ -22,6 +22,21 @@ class EPUBReaderPageViewController: UIViewController {
     let epub: EPUB
     let epubPageCoordinator: EPUB.PageCoordinator
 
+    var navigationInfo: (epubItemRef: EPUB.Item.Ref, fragment: String?)? {
+        guard let webViewController = (self.pageViewController.viewControllers as? [WebViewController])?.first else {
+            return nil
+        }
+
+        guard let epubItemRef = webViewController.webViewController.itemRef else {
+            return nil
+        }
+
+        return (
+            epubItemRef: epubItemRef,
+            fragment: webViewController.webViewController.fragment
+        )
+    }
+
     lazy var slider: UISlider = {
         let slider = UISlider()
 
@@ -38,6 +53,7 @@ class EPUBReaderPageViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         self.epubMetadataObservation = epub.$metadata
+            .receive(on: DispatchQueue.main)
             .sink { [weak self](metadata) in
                 self?.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
@@ -56,7 +72,7 @@ class EPUBReaderPageViewController: UIViewController {
             }, receiveValue: { [unowned self](pagePositions) in
                 self.slider.maximumValue = Float(pagePositions.endIndex - 1)
 
-                if (self.pageViewController.viewControllers as? [WebViewController])?.first?.webViewController.pagePositionInfo == nil {
+                if (self.pageViewController.viewControllers as? [WebViewController])?.allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false {
                     self.loadWebViewControllers()
                 }
             })
@@ -111,20 +127,20 @@ class EPUBReaderPageViewController: UIViewController {
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
-        pageViewController.setViewControllers((0..<pageSize).map { (_) in WebViewController() }, direction: .forward, animated: false)
-
         edgesForExtendedLayout = []
 
         toolbarItems = [
             .init(customView: slider)
         ]
+
+        loadWebViewControllers()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width / CGFloat(pageSize), height: view.bounds.size.height)
-        loadWebViewControllers()
+        updateWebViewControllers()
     }
 
     override func viewDidLayoutSubviews() {
@@ -137,10 +153,25 @@ class EPUBReaderPageViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
 
         self.epubPageCoordinator.pageSize = .init(width: size.width / CGFloat(pageSize), height: size.height)
-        updateWebViewControllers()
+        DispatchQueue.main.async {
+            self.updateWebViewControllers()
+        }
     }
 
     func updateWebViewControllers(reusableWebViewControllers: [WebViewController] = []) {
+        guard
+            case .normal = epub.state,
+            let pagePositions = try? epubPageCoordinator.pagePositions.get()
+        else {
+            return
+        }
+
+        guard pagePositions.count >= pageSize else {
+            return DispatchQueue.main.async {
+                self.updateWebViewControllers(reusableWebViewControllers: reusableWebViewControllers)
+            }
+        }
+
         var reusableWebViewControllers = reusableWebViewControllers
 
         defer {
@@ -148,14 +179,7 @@ class EPUBReaderPageViewController: UIViewController {
             self.updatePreviousWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
         }
 
-        guard
-            let pageViewControllers = pageViewController.viewControllers as? [WebViewController]
-        else {
-            pageViewController.setViewControllers((0..<pageSize).map { (_) in WebViewController() }, direction: .forward, animated: false)
-            return
-        }
-
-        pageViewControllers.enumerated().forEach {
+        (pageViewController.viewControllers as? [WebViewController])?.enumerated().forEach {
             $0.element.readerNavigatable = self
             $0.element.pageInfo = (epubPageCoordinator, currentPage + $0.offset)
         }
@@ -272,21 +296,12 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        guard
-            case .normal = epub.state,
-            let pagePositions = try? epubPageCoordinator.pagePositions.get(),
-            pagePositions.count > pageSize
-        else {
-            return
-        }
-
         pageViewController.setViewControllers(
             (0..<pageSize).map { (_) in WebViewController() },
             direction: .forward,
             animated: false
         )
 
-        currentPage = 0
         updateWebViewControllers()
     }
 
@@ -308,7 +323,9 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
         case (.phone, .landscapeLeft), (.phone, .landscapeRight), (.pad, _):
             pageViewController.isDoubleSided = true
             pageViewController.setViewControllers(
-                (pageViewController.viewControllers?[0]).flatMap { [$0, WebViewController()] } ?? (0..<pageSize).map { (_) in WebViewController() },
+                (0...1)
+                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
             updateWebViewControllers()
@@ -317,7 +334,9 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
         default:
             pageViewController.isDoubleSided = false
             pageViewController.setViewControllers(
-                (pageViewController.viewControllers?[0]).flatMap { [$0] } ?? (0..<pageSize).map { (_) in WebViewController() },
+                (0..<1)
+                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
             updateWebViewControllers()

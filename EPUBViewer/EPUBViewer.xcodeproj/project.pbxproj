@@ -933,7 +933,7 @@
 			repositoryURL = "https://github.com/sinoru/SNUXKit.swift.git";
 			requirement = {
 				kind = revision;
-				revision = 378e52e00802c4a18c6f2539e81c7b630ec7258f;
+				revision = 64ebb86d80a125941dc6b2495921b15546eb2c6b;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
