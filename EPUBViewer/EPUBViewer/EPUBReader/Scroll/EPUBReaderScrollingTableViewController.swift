@@ -154,12 +154,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     // MARK: -
 
     func updateDataSource(with pagePositions: [[EPUB.PagePosition]?]? = nil) {
-        let pagePositions: [EPUB.PagePosition] = {
-            let pagePositions = (pagePositions ?? self.epubPageCoordinator.pagePositions).flatten()
-
-            return Array(pagePositions[0...(pagePositions.firstIndex(of: nil) ?? (pagePositions.endIndex - 1))])
-                .compactMap {$0}
-        }()
+        let pagePositions: [EPUB.PagePosition] = (pagePositions ?? self.epubPageCoordinator.pagePositions).compacted()
 
         var snapshot = self.dataSource.snapshot()
 
