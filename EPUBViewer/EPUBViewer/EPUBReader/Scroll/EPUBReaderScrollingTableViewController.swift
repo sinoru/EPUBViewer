@@ -60,6 +60,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         slider.addTarget(self, action: #selector(self.sliderValueDidChange), for: .valueChanged)
         slider.isContinuous = false
+        slider.minimumValue = 0
 
         return slider
     }()
@@ -88,7 +89,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
                     self.present(error: error)
                 }
             }, receiveValue: { [unowned self](pagePositions) in
-                self.slider.maximumValue = Float(pagePositions.count)
+                self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
                 self.updateDataSource(with: pagePositions)
             })
     }
@@ -108,7 +109,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         tableView.register(EPUBReaderScrollingTableViewCell.self, forCellReuseIdentifier: Self.cellReuseIdentifier)
         tableView.dataSource = dataSource
-        tableView.prefetchDataSource = self
+//        tableView.prefetchDataSource = self
         tableView.separatorStyle = .none
 
         toolbarItems = [
@@ -151,6 +152,12 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         cell.webViewController?.removeFromParent()
     }
 
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let row = tableView.indexPathForRow(at: tableView.contentOffset)?.row {
+            slider.value = Float(row)
+        }
+    }
+
     // MARK: -
 
     func updateDataSource(with pagePositions: [[EPUB.PagePosition]?]? = nil) {
@@ -189,17 +196,9 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     @IBAction
     func sliderValueDidChange(_ sender: UISlider) {
-        let page = Int(min(sender.value.rounded(), sender.maximumValue))
+        let page = Int(max(min(sender.value.rounded(), sender.maximumValue), sender.minimumValue))
 
-        let pagePositions: [EPUB.PagePosition?] = self.epubPageCoordinator.pagePositions.flatten()
-
-        guard
-            pagePositions.indices.contains(page) && !pagePositions[0..<page].contains(nil),
-            let pagePosition = pagePositions[page] else {
-                return
-        }
-
-        navigate(to: pagePosition, fragment: nil)
+        tableView.scrollToRow(at: IndexPath(row: page, section: 0), at: .top, animated: true)
     }
 }
 

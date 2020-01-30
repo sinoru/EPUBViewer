@@ -42,6 +42,7 @@ class EPUBReaderPageViewController: UIViewController {
 
         slider.addTarget(self, action: #selector(self.sliderValueDidChange), for: .valueChanged)
         slider.isContinuous = false
+        slider.minimumValue = 0
 
         return slider
     }()
@@ -70,7 +71,7 @@ class EPUBReaderPageViewController: UIViewController {
                     self.present(error: error)
                 }
             }, receiveValue: { [unowned self](pagePositions) in
-                self.slider.maximumValue = Float(pagePositions.endIndex - 1)
+                self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
 
                 if (self.pageViewController.viewControllers as? [WebViewController])?.allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false {
                     self.loadWebViewControllers()
