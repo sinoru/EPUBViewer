@@ -26,16 +26,14 @@ extension EPUBReaderPageNavigatable {
             return
         }
 
-        guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
-            return
-        }
+        let pagePositions: [EPUB.PagePosition?] = epubPageCoordinator.pagePositions.flatten()
 
         guard let pagePosition = pagePositions.first(where: { (pagePosition) in
-            pagePosition.itemRef == epubItem.ref &&
+            pagePosition?.itemRef == epubItem.ref &&
                 tocItem.epubItemURL.fragment.flatMap {
-                    pagePosition.contentInfo.contentYOffsetsByID[$0] != nil
+                    pagePosition?.contentInfo.contentYOffsetsByID[$0] != nil
                 } ?? true
-        }) else {
+        }) as? EPUB.PagePosition else {
             if epubPageCoordinator.progress.fractionCompleted < 1.0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.navigate(to: tocItem)
@@ -52,16 +50,14 @@ extension EPUBReaderPageNavigatable {
             return
         }
 
-        guard let pagePositions = try? epubPageCoordinator.pagePositions.get() else {
-            return
-        }
+        let pagePositions: [EPUB.PagePosition?] = epubPageCoordinator.pagePositions.flatten()
 
         guard let pagePosition = pagePositions.first(where: { (pagePosition) in
-            pagePosition.itemRef == epubItem.ref &&
+            pagePosition?.itemRef == epubItem.ref &&
                 fragment.flatMap {
-                    pagePosition.contentInfo.contentYOffsetsByID[$0] != nil
+                    pagePosition?.contentInfo.contentYOffsetsByID[$0] != nil
                 } ?? true
-        }) else {
+        }) as? EPUB.PagePosition else {
             if epubPageCoordinator.progress.fractionCompleted < 1.0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.navigate(to: epubItemRef, fragment: fragment)

@@ -68,6 +68,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
         // Do any additional setup after loading the view.
     }
 
+    @discardableResult
     override func present(error: Error) -> Bool {
         guard
             let error = error as? URLError,
@@ -132,6 +133,14 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 extension EPUBReaderWebViewController {
     @objc
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        switch navigationAction.navigationType {
+        case .linkActivated, .formSubmitted, .formResubmitted:
+            break
+        default:
+            decisionHandler(.allow)
+            return
+        }
+
         guard
             let originalURL = webView.url,
             let targetURL = navigationAction.request.url else {
@@ -181,20 +190,17 @@ extension EPUBReaderWebViewController {
             return
         }
 
-        guard let pagePositions = try? pageCoordinator.pagePositions.get() else {
-            decisionHandler(.cancel)
-            return
-        }
+        let pagePositions: [EPUB.PagePosition?] = pageCoordinator.pagePositions.flatten()
 
         guard let pagePosition = pagePositions.lazy
-            .filter({ $0.itemRef == item.ref })
+            .filter({ $0?.itemRef == item.ref })
             .first(where: {
                 if let fragment = targetURL.fragment {
-                    return $0.contentInfo.contentYOffsetsByID.contains(where: { $0.key == fragment })
+                    return $0?.contentInfo.contentYOffsetsByID.contains(where: { $0.key == fragment }) == true
                 } else {
                     return true
                 }
-            }) else {
+            }) as? EPUB.PagePosition else {
                 decisionHandler(.cancel)
                 return
         }

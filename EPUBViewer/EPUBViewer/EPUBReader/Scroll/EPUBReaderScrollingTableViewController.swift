@@ -153,10 +153,13 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     // MARK: -
 
-    func updateDataSource(with pagePositions: [EPUB.PagePosition]? = nil) {
-        guard let pagePositions = pagePositions ?? (try? self.epubPageCoordinator.pagePositions.get()) else {
-            return
-        }
+    func updateDataSource(with pagePositions: [[EPUB.PagePosition]?]? = nil) {
+        let pagePositions: [EPUB.PagePosition] = {
+            let pagePositions = (pagePositions ?? self.epubPageCoordinator.pagePositions).flatten()
+
+            return Array(pagePositions[0...(pagePositions.firstIndex(of: nil) ?? (pagePositions.endIndex - 1))])
+                .compactMap {$0}
+        }()
 
         var snapshot = self.dataSource.snapshot()
 
@@ -193,8 +196,12 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
     func sliderValueDidChange(_ sender: UISlider) {
         let page = Int(min(sender.value.rounded(), sender.maximumValue))
 
-        guard let pagePosition = try? epubPageCoordinator.pagePositions.get()[page] else {
-            return
+        let pagePositions: [EPUB.PagePosition?] = self.epubPageCoordinator.pagePositions.flatten()
+
+        guard
+            pagePositions.indices.contains(page) && !pagePositions[0..<page].contains(nil),
+            let pagePosition = pagePositions[page] else {
+                return
         }
 
         navigate(to: pagePosition, fragment: nil)
@@ -239,7 +246,9 @@ extension EPUBReaderScrollingTableViewController: EPUBReaderPageNavigatable {
             pagePosition.contentInfo.contentYOffsetsByID[$0]
         } ?? pagePosition.contentYOffset
 
+        let pagePositions: [EPUB.PagePosition?] = self.epubPageCoordinator.pagePositions.flatten()
+
         tableView.contentOffset.y = previousItemHeights + currentItemContentOffsetY - tableView.adjustedContentInset.top
-        slider.value = Float((try? epubPageCoordinator.pagePositions.get().firstIndex(of: pagePosition)) ?? 0)
+        slider.value = Float(pagePositions.firstIndex(of: pagePosition) ?? 0)
     }
 }

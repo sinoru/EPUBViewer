@@ -26,17 +26,22 @@ class EPUBReaderPageWebViewController: UIViewController {
                 return
             }
 
-            guard let pagePositions = try? pageInfo.0.pagePositions.get() else {
-                webViewController.pagePositionInfo = nil
-                return
-            }
+            let pagePositions: [EPUB.PagePosition?] = pageInfo.0.pagePositions.flatten()
 
             guard pagePositions.indices.contains(pageInfo.1) else {
                 webViewController.pagePositionInfo = nil
                 return
             }
 
-            webViewController.pagePositionInfo = (pageInfo.0, pagePositions[pageInfo.1])
+            guard !pagePositions[0...pageInfo.1].contains(nil) else {
+                return
+            }
+
+            guard let pagePosition = pagePositions[pageInfo.1] else {
+                return
+            }
+
+            webViewController.pagePositionInfo = (pageInfo.0, pagePosition)
         }
     }
 
