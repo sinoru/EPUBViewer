@@ -14,7 +14,7 @@ struct EPUBReaderOptions {
         case scroll
     }
 
-    var readerMode: ReaderMode = .scroll
+    var readerMode: ReaderMode = .pageCurl
 }
 
 extension EPUBReaderOptions.ReaderMode: CustomStringConvertible {

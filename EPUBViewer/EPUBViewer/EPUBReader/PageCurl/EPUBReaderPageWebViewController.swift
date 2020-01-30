@@ -14,11 +14,34 @@ import Combine
 class EPUBReaderPageWebViewController: UIViewController {
     private(set) lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
 
-    var pageCoordinator: EPUB.PageCoordinator?
-    var page: Int? {
+    weak var readerNavigatable: (NSObjectProtocol & EPUBReaderPageNavigatable)? {
         didSet {
-            webViewController.pageCoordinator = pageCoordinator
-            webViewController.position = page.flatMap { pageCoordinator.flatMap { try? $0.pagePositions.get() }?[$0] }
+            webViewController.readerNavigatable = readerNavigatable
+        }
+    }
+    var pageInfo: (EPUB.PageCoordinator, Int)? {
+        didSet {
+            guard let pageInfo = pageInfo else {
+                webViewController.pagePositionInfo = nil
+                return
+            }
+
+            let pagePositions: [EPUB.PagePosition?] = pageInfo.0.pagePositions.flatten()
+
+            guard pagePositions.indices.contains(pageInfo.1) else {
+                webViewController.pagePositionInfo = nil
+                return
+            }
+
+            guard !pagePositions[0...pageInfo.1].contains(nil) else {
+                return
+            }
+
+            guard let pagePosition = pagePositions[pageInfo.1] else {
+                return
+            }
+
+            webViewController.pagePositionInfo = (pageInfo.0, pagePosition)
         }
     }
 

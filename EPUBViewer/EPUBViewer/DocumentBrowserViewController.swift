@@ -79,7 +79,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             let epubPrewviewViewController = UIHostingController(rootView: epubPrewviewView)
             self.present(epubPrewviewViewController, animated: true, completion: nil)
         } catch {
-            self.presentError(error)
+            present(error: error)
         }
     }
 
@@ -92,11 +92,5 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         epubReaderViewController.modalPresentationStyle = .fullScreen
 
         self.present(epubReaderViewController, animated: true)
-    }
-
-    // MAKR: -
-
-    func presentError(_ error: Swift.Error) {
-        debugPrint(error)
     }
 }

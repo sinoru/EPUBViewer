@@ -56,8 +56,8 @@ class PreviewViewController: UIViewController, QLPreviewingController {
                         return
                     }
 
-                    self.titleLabel.text = self.epub?.metadata?.title
-                    self.creatorLabel.text = self.epub?.metadata?.creator
+                    self.titleLabel.text = self.epub?.metadata.title
+                    self.creatorLabel.text = self.epub?.metadata.creator
 
                     // Call the completion handler so Quick Look knows that the preview is fully loaded.
                     // Quick Look will display a loading spinner while the completion handler is not called.

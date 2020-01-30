@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "CMinizip",
+        "repositoryURL": "https://github.com/sinoru/CMinizip.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "78fb6a81d64330880e87c0df654825ada01fb336",
+          "version": "2.9.1"
+        }
+      },
+      {
         "package": "JGProgressHUD",
         "repositoryURL": "https://github.com/JonasGessner/JGProgressHUD.git",
         "state": {
           "branch": null,
           "revision": "08d130dd614a743f813286f096804c43a6ffa3f6",
           "version": "2.1.0"
-        }
-      },
-      {
-        "package": "Minizip",
-        "repositoryURL": "https://github.com/sinoru/minizip.git",
-        "state": {
-          "branch": "9f7e70eb",
-          "revision": "9f7e70eb9bddfe771ecf8c1ba6fd5b59b539d88b",
-          "version": null
         }
       },
       {
@@ -33,7 +33,16 @@
         "repositoryURL": "https://github.com/sinoru/SNFoundation.swift.git",
         "state": {
           "branch": null,
-          "revision": "a19d1627ed46ac123fcd79d187f47cb589b96a02",
+          "revision": "7cc9dfede144ef0d5e30a02eaeebbe67dd43e66c",
+          "version": null
+        }
+      },
+      {
+        "package": "SNUXKit",
+        "repositoryURL": "https://github.com/sinoru/SNUXKit.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "3c377c38ad76b7b7e9d97fbb376017f1ca366f05",
           "version": null
         }
       }

@@ -18,7 +18,7 @@ class EPUBReaderViewController: UINavigationController {
     private var options: EPUBReaderOptions = .init() {
         didSet {
             if options.readerMode != oldValue.readerMode {
-                let viewController: UIViewController = {
+                let viewController: (UIViewController & EPUBReaderPageNavigatable) = {
                     switch options.readerMode {
                     case .pageCurl:
                         return EPUBReaderPageViewController(epub: epub)
@@ -26,6 +26,10 @@ class EPUBReaderViewController: UINavigationController {
                         return EPUBReaderScrollingTableViewController(epub: epub)
                     }
                 }()
+
+                if let navigationInfo = (self.topViewController as? EPUBReaderPageNavigatable)?.navigationInfo {
+                    viewController.navigate(to: navigationInfo.epubItemRef, fragment: navigationInfo.fragment)
+                }
 
                 self.setViewControllers([viewController], animated: true)
             }
@@ -37,7 +41,7 @@ class EPUBReaderViewController: UINavigationController {
         self.epub = epub
         self.dismissHandler = dismiss
 
-        super.init(rootViewController: EPUBReaderScrollingTableViewController(epub: epub))
+        super.init(rootViewController: EPUBReaderPageViewController(epub: epub))
 
         self.delegate = self
         self.epubStateObservation = epub.$state
@@ -57,6 +61,7 @@ class EPUBReaderViewController: UINavigationController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         hidesBarsOnTap = true
+        isToolbarHidden = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -103,6 +108,23 @@ class EPUBReaderViewController: UINavigationController {
     }
 
     @IBAction
+    func presentTOC(_ sender: UIBarButtonItem?) {
+        let epubReaderTOCView = EPUBReaderTOCView() { (toc) in
+            if let navigatableReader = self.topViewController as? EPUBReaderPageNavigatable {
+                navigatableReader.navigate(to: toc)
+            }
+            
+            self.dismiss(animated: true)
+        }.environmentObject(epub)
+
+        let epubReaderTOCViewController = UIHostingController(rootView: epubReaderTOCView)
+        epubReaderTOCViewController.modalPresentationStyle = .popover
+        epubReaderTOCViewController.popoverPresentationController?.barButtonItem = sender
+
+        self.present(epubReaderTOCViewController, animated: true)
+    }
+
+    @IBAction
     func presentOptions(_ sender: UIBarButtonItem?) {
         let epubReaderOptionsView = EPUBReaderOptionsView(
             options: .init(get: { self.options }, set: { self.options = $0 })
@@ -131,7 +153,8 @@ class EPUBReaderViewController: UINavigationController {
 extension EPUBReaderViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.leftBarButtonItems = [
-            .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
+            .init(barButtonSystemItem: .close, target: self, action: #selector(self.close)),
+            .init(title: "TOC", style: .plain, target: self, action: #selector(self.presentTOC))
         ]
         viewController.navigationItem.rightBarButtonItems = [
             .init(title: "Options", style: .plain, target: self, action: #selector(self.presentOptions))
