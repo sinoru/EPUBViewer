@@ -55,7 +55,7 @@ class EPUBReaderPageViewController: UIViewController {
 
         self.epubMetadataObservation = epub.$metadata
             .receive(on: DispatchQueue.main)
-            .sink { [weak self](metadata) in
+            .sink { [weak self] metadata in
                 self?.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
 
@@ -63,14 +63,14 @@ class EPUBReaderPageViewController: UIViewController {
             .removeDuplicates()
             .throttle(for: .milliseconds(100), scheduler: DispatchQueue.global(), latest: true)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self](completion) in
+            .sink(receiveCompletion: { [unowned self] completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
                     self.present(error: error)
                 }
-            }, receiveValue: { [unowned self](pagePositions) in
+            }, receiveValue: { [unowned self] pagePositions in
                 self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
 
                 if

@@ -85,7 +85,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
             let epubResourceURL = pageCoordinator.epub.resourceURL,
             let epubItem = (pagePositionInfo?.1.itemRef).flatMap({ pageCoordinator.epub.items[$0] })
         else {
-            webView.load(URLRequest(url: URL(string:"about:blank")!))
+            webView.load(URLRequest(url: URL(string: "about:blank")!))
             return
         }
 
