@@ -93,6 +93,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     }
 
     func setWebViewContentOffset(_ offset: CGPoint) {
+        // swiftlint:disable line_length
         webView.evaluateJavaScript("""
             function windowDidLoad() {
                 if (location.href == "about:blank") {
@@ -127,6 +128,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
                 self.present(error: error)
             }
         })
+        // swiftlint:enable line_length
     }
 }
 

@@ -73,7 +73,10 @@ class EPUBReaderPageViewController: UIViewController {
             }, receiveValue: { [unowned self](pagePositions) in
                 self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
 
-                if (self.pageViewController.viewControllers as? [WebViewController])?.allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false {
+                if
+                    (self.pageViewController.viewControllers as? [WebViewController])?
+                        .allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false
+                {
                     self.loadWebViewControllers()
                 }
             })
@@ -140,14 +143,20 @@ class EPUBReaderPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width / CGFloat(pageSize), height: view.bounds.size.height)
+        epubPageCoordinator.pageSize = .init(
+            width: view.bounds.size.width / CGFloat(pageSize),
+            height: view.bounds.size.height
+        )
         updateWebViewControllers()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        self.epubPageCoordinator.pageSize = .init(width: view.bounds.size.width / CGFloat(pageSize), height: view.bounds.size.height)
+        epubPageCoordinator.pageSize = .init(
+            width: view.bounds.size.width / CGFloat(pageSize),
+            height: view.bounds.size.height
+        )
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
