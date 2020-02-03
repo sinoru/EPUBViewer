@@ -6,8 +6,8 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import SwiftUI
 import EPUBKit
+import SwiftUI
 
 struct EPUBPreviewView: View {
     @EnvironmentObject var epub: EPUB

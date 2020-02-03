@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    private(set) var webViewConfiguration: WKWebViewConfiguration = WKWebViewConfiguration()
+    private(set) var webViewConfiguration = WKWebViewConfiguration()
 
     lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: self.webViewConfiguration)

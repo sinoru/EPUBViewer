@@ -6,8 +6,8 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import XCTest
 @testable import EPUBViewer
+import XCTest
 
 class EPUBViewerTests: XCTestCase {
 

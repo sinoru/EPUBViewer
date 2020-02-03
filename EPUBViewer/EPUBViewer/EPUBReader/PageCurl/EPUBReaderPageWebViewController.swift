@@ -6,10 +6,10 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
+import Combine
+import EPUBKit
 import UIKit
 import WebKit
-import EPUBKit
-import Combine
 
 class EPUBReaderPageWebViewController: UIViewController {
     private(set) lazy var webViewController: EPUBReaderWebViewController = .init(configuration: .init())
@@ -66,7 +66,7 @@ class EPUBReaderPageWebViewController: UIViewController {
         view.addSubview(webViewController.view)
 
         loadingObserver = webViewController.$isLoading
-            .sink(receiveValue: { [weak self](isLoading) in
+            .sink(receiveValue: { [weak self]isLoading in
                 self?.webViewController.webView.isHidden = isLoading
             })
     }

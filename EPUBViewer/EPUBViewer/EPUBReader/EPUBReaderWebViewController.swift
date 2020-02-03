@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
+import EPUBKit
+import SafariServices
+import SNUXKit
 import UIKit
 import WebKit
-import SafariServices
-import EPUBKit
-import SNUXKit
 
 class EPUBReaderWebViewController: WebViewController, ObservableObject {
     static let processPool = WKProcessPool()
@@ -123,7 +123,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
                     })
                     break
             }
-        """, completionHandler: { (_, error) in
+        """, completionHandler: { _, error in
             if let error = error {
                 self.present(error: error)
             }

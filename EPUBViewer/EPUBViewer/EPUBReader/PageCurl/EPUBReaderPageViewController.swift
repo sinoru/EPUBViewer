@@ -6,10 +6,10 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
+import Combine
 import EPUBKit
 import SwiftUI
-import Combine
+import UIKit
 
 class EPUBReaderPageViewController: UIViewController {
     static let pageBufferSize = 1
@@ -75,8 +75,7 @@ class EPUBReaderPageViewController: UIViewController {
 
                 if
                     (self.pageViewController.viewControllers as? [WebViewController])?
-                        .allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false
-                {
+                        .allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false {
                     self.loadWebViewControllers()
                 }
             })
@@ -232,7 +231,7 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        nextWebViewControllers.enumerated().forEach { (index, webViewController) in
+        nextWebViewControllers.enumerated().forEach { index, webViewController in
             guard let webViewController = webViewController else {
                 return
             }
@@ -283,7 +282,7 @@ class EPUBReaderPageViewController: UIViewController {
             }
         }
 
-        previousWebViewControllers.enumerated().reversed().forEach { (index, webViewController) in
+        previousWebViewControllers.enumerated().reversed().forEach { index, webViewController in
             guard let webViewController = webViewController else {
                 return
             }
@@ -308,7 +307,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         pageViewController.setViewControllers(
-            (0..<pageSize).map { (_) in WebViewController() },
+            (0..<pageSize).map { _ in WebViewController() },
             direction: .forward,
             animated: false
         )

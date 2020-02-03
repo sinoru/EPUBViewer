@@ -6,10 +6,10 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
-import QuickLook
-import EPUBKit
 import Combine
+import EPUBKit
+import QuickLook
+import UIKit
 
 class PreviewViewController: UIViewController, QLPreviewingController {
         
@@ -46,7 +46,7 @@ class PreviewViewController: UIViewController, QLPreviewingController {
 
             epubStateObserver = epub?.$state
                 .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
-                .sink { (state) in
+                .sink { state in
                     if case .error(let error) = state {
                         handler(error)
                         return

@@ -6,8 +6,8 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import Foundation
 import EPUBKit
+import Foundation
 
 protocol EPUBReaderPageNavigatable {
     var epub: EPUB { get }
@@ -28,7 +28,7 @@ extension EPUBReaderPageNavigatable {
 
         let pagePositions: [EPUB.PagePosition?] = epubPageCoordinator.pagePositions.flatten()
 
-        guard let pagePosition = pagePositions.first(where: { (pagePosition) in
+        guard let pagePosition = pagePositions.first(where: { pagePosition in
             pagePosition?.itemRef == epubItem.ref &&
                 tocItem.epubItemURL.fragment.flatMap {
                     pagePosition?.contentInfo.contentYOffsetsByID[$0] != nil
@@ -52,7 +52,7 @@ extension EPUBReaderPageNavigatable {
 
         let pagePositions: [EPUB.PagePosition?] = epubPageCoordinator.pagePositions.flatten()
 
-        guard let pagePosition = pagePositions.first(where: { (pagePosition) in
+        guard let pagePosition = pagePositions.first(where: { pagePosition in
             pagePosition?.itemRef == epubItem.ref &&
                 fragment.flatMap {
                     pagePosition?.contentInfo.contentYOffsetsByID[$0] != nil

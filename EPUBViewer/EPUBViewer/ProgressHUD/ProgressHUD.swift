@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProgressHUD<Content> : View where Content : View {
+struct ProgressHUD<Content>: View where Content: View {
     typealias Style = ProgressHUDController.Style
 
     struct Controller: UIViewControllerRepresentable {

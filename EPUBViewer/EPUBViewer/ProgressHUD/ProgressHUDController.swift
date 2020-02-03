@@ -6,8 +6,8 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
 import JGProgressHUD
+import UIKit
 
 class ProgressHUDController: UIViewController {
     init(style: Style) {

@@ -6,10 +6,10 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
+import Combine
+import EPUBKit
 import UIKit
 import WebKit
-import EPUBKit
-import Combine
 
 class EPUBReaderScrollingTableViewCell: UITableViewCell {
     var webViewController: EPUBReaderWebViewController? {

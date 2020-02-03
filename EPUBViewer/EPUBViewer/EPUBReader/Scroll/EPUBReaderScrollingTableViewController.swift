@@ -6,9 +6,9 @@
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
-import EPUBKit
 import Combine
+import EPUBKit
+import UIKit
 
 class EPUBReaderScrollingTableViewController: UITableViewController {
     enum Section: CaseIterable {
@@ -40,7 +40,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     private var prefetchedWebViewControllers = [IndexPath: EPUBReaderWebViewController]()
 
-    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self](tableView, indexPath, pagePosition) -> UITableViewCell? in
+    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self]tableView, indexPath, pagePosition -> UITableViewCell? in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
             fatalError()
         }
@@ -73,7 +73,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         self.epubMetadataObservation = epub.$metadata
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self](metadata) in
+            .sink { [unowned self]metadata in
                 self.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
 
@@ -81,14 +81,14 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
             .removeDuplicates()
             .throttle(for: .milliseconds(100), scheduler: DispatchQueue.global(), latest: true)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self](completion) in
+            .sink(receiveCompletion: { [unowned self]completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
                     self.present(error: error)
                 }
-            }, receiveValue: { [unowned self](pagePositions) in
+            }, receiveValue: { [unowned self]pagePositions in
                 self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
                 self.updateDataSource(with: pagePositions)
             })
