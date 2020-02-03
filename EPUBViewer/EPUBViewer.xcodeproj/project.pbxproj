@@ -322,6 +322,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E6C5AF723BF3C8900A3DE04 /* Build configuration list for PBXNativeTarget "EPUBViewer" */;
 			buildPhases = (
+				1E92CFF023E80D7A0059ABAB /* SwiftLint */,
 				1E6C5AC723BF3C8700A3DE04 /* Sources */,
 				1E6C5AC823BF3C8700A3DE04 /* Frameworks */,
 				1E6C5AC923BF3C8700A3DE04 /* Resources */,
@@ -485,6 +486,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1E92CFF023E80D7A0059ABAB /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1E6C5AC723BF3C8700A3DE04 /* Sources */ = {
