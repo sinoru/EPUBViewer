@@ -14,4 +14,4 @@ jobs:
         xcode-version: '11.3.1'
     - run: brew bundle
     - run: bundle install --deployment
-    - run: xcodebuild -workspace EPUBViewer.xcworkspace -scheme EPUBViewer test > >(xcpretty -f `bundle exec xcpretty-actions-formatter`)
+    - run: xcodebuild -workspace EPUBViewer.xcworkspace -scheme EPUBViewer -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=13.3' test > >(xcpretty -f `bundle exec xcpretty-actions-formatter`)
