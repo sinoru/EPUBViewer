@@ -72,7 +72,8 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     override func present(error: Error) -> Bool {
         guard
             let error = error as? URLError,
-            error.code != URLError.cancelled else {
+            error.code != URLError.cancelled
+            else {
                 return false
         }
 
@@ -187,9 +188,17 @@ extension EPUBReaderWebViewController {
             return
         }
 
-        guard let item = epub.items.first(where: { URL(fileURLWithPath: $0.url.relativePath, relativeTo: epubResourceURL).path == targetURL.path }) else {
-            decisionHandler(.cancel)
-            return
+        guard
+            let item = epub.items
+                .first(where: {
+                    URL(
+                        fileURLWithPath: $0.url.relativePath,
+                        relativeTo: epubResourceURL
+                    ).path == targetURL.path
+                })
+            else {
+                decisionHandler(.cancel)
+                return
         }
 
         let pagePositions: [EPUB.PagePosition?] = pageCoordinator.pagePositions.flatten()

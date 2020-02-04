@@ -383,8 +383,13 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updatePreviousWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = previousWebViewControllers.lastIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 }) else {
-                return previousWebViewControllers.last
+            guard
+                let currentIndex = previousWebViewControllers
+                    .lastIndex(where: {
+                        $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1
+                    })
+                else {
+                    return previousWebViewControllers.last
             }
 
             guard currentIndex > 0 else {

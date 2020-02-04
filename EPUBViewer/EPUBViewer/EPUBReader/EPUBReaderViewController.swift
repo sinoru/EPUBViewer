@@ -95,7 +95,11 @@ class EPUBReaderViewController: UINavigationController {
             case .failure(let error):
                 DispatchQueue.main.async {
                     progressHUDController.dismiss(animated: true) {
-                        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        let alertController = UIAlertController(
+                            title: "Error",
+                            message: error.localizedDescription,
+                            preferredStyle: .alert
+                        )
                         alertController.addAction(
                             .init(title: "Confirm", style: .default)
                         )

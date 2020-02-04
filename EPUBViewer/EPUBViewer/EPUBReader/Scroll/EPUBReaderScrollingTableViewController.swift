@@ -40,7 +40,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     private var prefetchedWebViewControllers = [IndexPath: EPUBReaderWebViewController]()
 
-    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self]tableView, indexPath, pagePosition -> UITableViewCell? in
+    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self] tableView, indexPath, pagePosition -> UITableViewCell? in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
             fatalError()
         }
@@ -231,8 +231,11 @@ extension EPUBReaderScrollingTableViewController: EPUBReaderPageNavigatable {
             return
         }
 
-        guard let itemContentInfos = try? epub.spine.itemRefs.lazy.map({ try epubPageCoordinator.itemContentInfoForRef($0) })[(0..<spineIndex)] else {
-            return
+        guard
+            let itemContentInfos = try? epub.spine.itemRefs.lazy
+                .map({ try epubPageCoordinator.itemContentInfoForRef($0) })[(0..<spineIndex)]
+            else {
+                return
         }
 
         let previousItemHeights = itemContentInfos.reduce(0, { $0 + ($1?.contentSize.height ?? 0) })
