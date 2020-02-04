@@ -48,6 +48,26 @@
                ReferencedContainer = "container:EPUBViewer.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EPUBKitTests"
+               BuildableName = "EPUBKitTests"
+               BlueprintName = "EPUBKitTests"
+               ReferencedContainer = "container:Frameworks/EPUBKit">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XMLKitTests"
+               BuildableName = "XMLKitTests"
+               BlueprintName = "XMLKitTests"
+               ReferencedContainer = "container:Frameworks/EPUBKit">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
