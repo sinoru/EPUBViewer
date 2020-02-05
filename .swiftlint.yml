@@ -92,3 +92,6 @@ type_name:
 # Limit vertical whitespace to a single empty line.
 vertical_whitespace:
   max_empty_lines: 2
+
+file_header:
+  forbidden_pattern: \b(Created by)\b
