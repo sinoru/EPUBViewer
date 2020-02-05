@@ -2,12 +2,11 @@
 //  EPUBPreviewView.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/13.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import SwiftUI
 import EPUBKit
+import SwiftUI
 
 struct EPUBPreviewView: View {
     @EnvironmentObject var epub: EPUB

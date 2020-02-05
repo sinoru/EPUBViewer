@@ -2,14 +2,13 @@
 //  EPUBReaderPageViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/14.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
+import Combine
 import EPUBKit
 import SwiftUI
-import Combine
+import UIKit
 
 class EPUBReaderPageViewController: UIViewController {
     static let pageBufferSize = 1
@@ -75,8 +74,7 @@ class EPUBReaderPageViewController: UIViewController {
 
                 if
                     (self.pageViewController.viewControllers as? [WebViewController])?
-                        .allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false
-                {
+                        .allSatisfy({ $0.webViewController.pagePositionInfo != nil }) == false {
                     self.loadWebViewControllers()
                 }
             })
@@ -232,7 +230,7 @@ class EPUBReaderPageViewController: UIViewController {
             return
         }
 
-        nextWebViewControllers.enumerated().forEach { (index, webViewController) in
+        nextWebViewControllers.enumerated().forEach { index, webViewController in
             guard let webViewController = webViewController else {
                 return
             }
@@ -283,7 +281,7 @@ class EPUBReaderPageViewController: UIViewController {
             }
         }
 
-        previousWebViewControllers.enumerated().reversed().forEach { (index, webViewController) in
+        previousWebViewControllers.enumerated().reversed().forEach { index, webViewController in
             guard let webViewController = webViewController else {
                 return
             }
@@ -308,7 +306,7 @@ class EPUBReaderPageViewController: UIViewController {
         }
 
         pageViewController.setViewControllers(
-            (0..<pageSize).map { (_) in WebViewController() },
+            (0..<pageSize).map { _ in WebViewController() },
             direction: .forward,
             animated: false
         )
@@ -331,13 +329,17 @@ class EPUBReaderPageViewController: UIViewController {
 }
 
 extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
         switch (pageViewController.traitCollection.userInterfaceIdiom, orientation) {
         case (.phone, .landscapeLeft), (.phone, .landscapeRight), (.pad, _):
             pageViewController.isDoubleSided = true
             pageViewController.setViewControllers(
                 (0...1)
-                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map {
+                        pageViewController.viewControllers?.indices.contains($0) == true ?
+                            pageViewController.viewControllers?[$0] : nil
+                    }
                     .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
@@ -348,7 +350,10 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
             pageViewController.isDoubleSided = false
             pageViewController.setViewControllers(
                 (0..<1)
-                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map {
+                        pageViewController.viewControllers?.indices.contains($0) == true ?
+                            pageViewController.viewControllers?[$0] : nil
+                    }
                     .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
@@ -358,10 +363,12 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
         }
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
 
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if pageViewController.viewControllers != previousViewControllers {
             guard let previousViewControllers = previousViewControllers as? [WebViewController] else {
@@ -375,6 +382,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
 }
 
 extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? WebViewController else {
             fatalError("viewController should be \([WebViewController].self)")
@@ -384,8 +392,13 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updatePreviousWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = previousWebViewControllers.lastIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 }) else {
-                return previousWebViewControllers.last
+            guard
+                let currentIndex = previousWebViewControllers
+                    .lastIndex(where: {
+                        $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1
+                    })
+                else {
+                    return previousWebViewControllers.last
             }
 
             guard currentIndex > 0 else {
@@ -398,6 +411,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         return webViewController
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? WebViewController else {
             fatalError("viewController should be \([WebViewController].self)")
@@ -407,8 +421,14 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         updateNextWebViewControllers(reusableWebViewControllers: &reusableWebViewControllers)
 
         let webViewController: WebViewController? = {
-            guard let currentIndex = nextWebViewControllers.firstIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 }) else {
-                return nextWebViewControllers.first
+            guard
+                let currentIndex = nextWebViewControllers
+                    .firstIndex(where: {
+                        $0.pageInfo?.0 == viewController.pageInfo?.0 &&
+                            $0.pageInfo?.1 == viewController.pageInfo?.1
+                    })
+                else {
+                    return nextWebViewControllers.first
             }
 
             guard nextWebViewControllers.index(after: currentIndex) < nextWebViewControllers.count else {

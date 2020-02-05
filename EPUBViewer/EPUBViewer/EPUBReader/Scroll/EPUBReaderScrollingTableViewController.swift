@@ -2,13 +2,12 @@
 //  EPUBReaderScrollingTableViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/21.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
-import EPUBKit
 import Combine
+import EPUBKit
+import UIKit
 
 class EPUBReaderScrollingTableViewController: UITableViewController {
     enum Section: CaseIterable {
@@ -40,7 +39,9 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     private var prefetchedWebViewControllers = [IndexPath: EPUBReaderWebViewController]()
 
-    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self](tableView, indexPath, pagePosition) -> UITableViewCell? in
+    // swiftlint:disable:next line_length
+    lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self] tableView, indexPath, pagePosition -> UITableViewCell? in
+        // swiftlint:disable:next line_length
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
             fatalError()
         }
@@ -73,7 +74,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
         self.epubMetadataObservation = epub.$metadata
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self](metadata) in
+            .sink { [unowned self]metadata in
                 self.title = [metadata.creator, metadata.title].compactMap { $0 }.joined(separator: " - ")
             }
 
@@ -81,14 +82,14 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
             .removeDuplicates()
             .throttle(for: .milliseconds(100), scheduler: DispatchQueue.global(), latest: true)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self](completion) in
+            .sink(receiveCompletion: { [unowned self]completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
                     self.present(error: error)
                 }
-            }, receiveValue: { [unowned self](pagePositions) in
+            }, receiveValue: { [unowned self]pagePositions in
                 self.slider.maximumValue = Float(pagePositions.compacted().endIndex - 1)
                 self.updateDataSource(with: pagePositions)
             })
@@ -136,6 +137,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         return dataSource.itemIdentifier(for: indexPath)?.pageSize.height ?? 0
     }
 
+    // swiftlint:disable:next line_length
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
             return
@@ -144,6 +146,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         cell.webViewController.flatMap { addChild($0) }
     }
 
+    // swiftlint:disable:next line_length
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
             return
@@ -231,8 +234,11 @@ extension EPUBReaderScrollingTableViewController: EPUBReaderPageNavigatable {
             return
         }
 
-        guard let itemContentInfos = try? epub.spine.itemRefs.lazy.map({ try epubPageCoordinator.itemContentInfoForRef($0) })[(0..<spineIndex)] else {
-            return
+        guard
+            let itemContentInfos = try? epub.spine.itemRefs.lazy
+                .map({ try epubPageCoordinator.itemContentInfoForRef($0) })[(0..<spineIndex)]
+            else {
+                return
         }
 
         let previousItemHeights = itemContentInfos.reduce(0, { $0 + ($1?.contentSize.height ?? 0) })

@@ -2,13 +2,12 @@
 //  ProgressHUD.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/14.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
 import SwiftUI
 
-struct ProgressHUD<Content> : View where Content : View {
+struct ProgressHUD<Content>: View where Content: View {
     typealias Style = ProgressHUDController.Style
 
     struct Controller: UIViewControllerRepresentable {
@@ -18,10 +17,12 @@ struct ProgressHUD<Content> : View where Content : View {
             self.style = style
         }
 
+        // swiftlint:disable:next line_length
         func makeUIViewController(context: UIViewControllerRepresentableContext<ProgressHUD.Controller>) -> ProgressHUDController {
             return ProgressHUDController(style: style)
         }
 
+        // swiftlint:disable:next line_length
         func updateUIViewController(_ uiViewController: ProgressHUDController, context: UIViewControllerRepresentableContext<ProgressHUD.Controller>) {
 
         }

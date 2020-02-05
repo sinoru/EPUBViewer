@@ -2,7 +2,6 @@
 //  WebViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/15.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
@@ -10,7 +9,7 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    private(set) var webViewConfiguration: WKWebViewConfiguration = WKWebViewConfiguration()
+    private(set) var webViewConfiguration = WKWebViewConfiguration()
 
     lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: self.webViewConfiguration)

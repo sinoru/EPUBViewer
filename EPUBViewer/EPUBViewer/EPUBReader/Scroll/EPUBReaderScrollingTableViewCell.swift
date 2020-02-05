@@ -2,14 +2,13 @@
 //  EPUBReaderScrollingTableViewCell.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/21.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
+import Combine
+import EPUBKit
 import UIKit
 import WebKit
-import EPUBKit
-import Combine
 
 class EPUBReaderScrollingTableViewCell: UITableViewCell {
     var webViewController: EPUBReaderWebViewController? {

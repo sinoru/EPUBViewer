@@ -2,14 +2,13 @@
 //  EPUBReaderViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/20.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
-import UIKit
-import EPUBKit
 import Combine
+import EPUBKit
 import SwiftUI
+import UIKit
 
 class EPUBReaderViewController: UINavigationController {
     let epub: EPUB
@@ -46,7 +45,7 @@ class EPUBReaderViewController: UINavigationController {
         self.delegate = self
         self.epubStateObservation = epub.$state
             .throttle(for: .milliseconds(100), scheduler: RunLoop.main, latest: true)
-            .sink { [weak self](_) in
+            .sink { [weak self]_ in
                 self?.openEPUB()
             }
     }
@@ -83,10 +82,10 @@ class EPUBReaderViewController: UINavigationController {
             return
         }
 
-        let progressHUDController = ProgressHUDController.init(style: .dark)
+        let progressHUDController = ProgressHUDController(style: .dark)
         self.present(progressHUDController, animated: true)
 
-        epub.open { (result) in
+        epub.open { result in
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -95,7 +94,11 @@ class EPUBReaderViewController: UINavigationController {
             case .failure(let error):
                 DispatchQueue.main.async {
                     progressHUDController.dismiss(animated: true) {
-                        let alertController = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        let alertController = UIAlertController(
+                            title: "Error",
+                            message: error.localizedDescription,
+                            preferredStyle: .alert
+                        )
                         alertController.addAction(
                             .init(title: "Confirm", style: .default)
                         )
@@ -109,7 +112,7 @@ class EPUBReaderViewController: UINavigationController {
 
     @IBAction
     func presentTOC(_ sender: UIBarButtonItem?) {
-        let epubReaderTOCView = EPUBReaderTOCView() { (toc) in
+        let epubReaderTOCView = EPUBReaderTOCView { toc in
             if let navigatableReader = self.topViewController as? EPUBReaderPageNavigatable {
                 navigatableReader.navigate(to: toc)
             }
@@ -151,6 +154,7 @@ class EPUBReaderViewController: UINavigationController {
 
 
 extension EPUBReaderViewController: UINavigationControllerDelegate {
+    // swiftlint:disable:next line_length
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.leftBarButtonItems = [
             .init(barButtonSystemItem: .close, target: self, action: #selector(self.close)),

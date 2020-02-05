@@ -2,15 +2,14 @@
 //  EPUBReaderWebViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/21.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
+import EPUBKit
+import SafariServices
+import SNUXKit
 import UIKit
 import WebKit
-import SafariServices
-import EPUBKit
-import SNUXKit
 
 class EPUBReaderWebViewController: WebViewController, ObservableObject {
     static let processPool = WKProcessPool()
@@ -43,11 +42,21 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     required init(configuration: WKWebViewConfiguration) {
         configuration.processPool = Self.processPool
         configuration.userContentController.addUserScript(
-            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: false))
+            .init(
+                source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!,
+                injectionTime: .atDocumentStart,
+                forMainFrameOnly: false
+            )
+        )
         configuration.userContentController.addUserScript(
-            .init(source: """
-                $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />')
-            """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+            .init(
+                source: """
+                    $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />')
+                """,
+                injectionTime: .atDocumentEnd,
+                forMainFrameOnly: true
+            )
+        )
 
         super.init(configuration: configuration)
 
@@ -72,7 +81,8 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     override func present(error: Error) -> Bool {
         guard
             let error = error as? URLError,
-            error.code != URLError.cancelled else {
+            error.code != URLError.cancelled
+            else {
                 return false
         }
 
@@ -89,7 +99,10 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
             return
         }
 
-        webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.url.relativePath), allowingReadAccessTo: epubResourceURL)
+        webView.loadFileURL(
+            epubResourceURL.appendingPathComponent(epubItem.url.relativePath),
+            allowingReadAccessTo: epubResourceURL
+        )
     }
 
     func setWebViewContentOffset(_ offset: CGPoint) {
@@ -123,7 +136,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
                     })
                     break
             }
-        """, completionHandler: { (_, error) in
+        """, completionHandler: { _, error in
             if let error = error {
                 self.present(error: error)
             }
@@ -134,7 +147,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
 extension EPUBReaderWebViewController {
     @objc
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) { // swiftlint:disable:this line_length
         switch navigationAction.navigationType {
         case .linkActivated, .formSubmitted, .formResubmitted:
             break
@@ -145,24 +158,13 @@ extension EPUBReaderWebViewController {
 
         guard
             let originalURL = webView.url,
-            let targetURL = navigationAction.request.url else {
+            let targetURL = navigationAction.request.url,
+            navigationAction.targetFrame?.isMainFrame == true,
+            originalURL != targetURL,
+            originalURL.scheme != "about"
+            else {
                 decisionHandler(.allow)
                 return
-        }
-
-        guard navigationAction.targetFrame?.isMainFrame == true else {
-            decisionHandler(.allow)
-            return
-        }
-
-        guard originalURL != targetURL else {
-            decisionHandler(.allow)
-            return
-        }
-
-        guard originalURL.scheme != "about" else {
-            decisionHandler(.allow)
-            return
         }
 
         guard
@@ -187,9 +189,17 @@ extension EPUBReaderWebViewController {
             return
         }
 
-        guard let item = epub.items.first(where: { URL(fileURLWithPath: $0.url.relativePath, relativeTo: epubResourceURL).path == targetURL.path }) else {
-            decisionHandler(.cancel)
-            return
+        guard
+            let item = epub.items
+                .first(where: {
+                    URL(
+                        fileURLWithPath: $0.url.relativePath,
+                        relativeTo: epubResourceURL
+                    ).path == targetURL.path
+                })
+            else {
+                decisionHandler(.cancel)
+                return
         }
 
         let pagePositions: [EPUB.PagePosition?] = pageCoordinator.pagePositions.flatten()
