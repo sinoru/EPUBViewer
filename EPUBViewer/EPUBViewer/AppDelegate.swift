@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // swiftlint:enable line_length
     }
 
+    // swiftlint:disable:next line_length
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         // Ensure the URL is a file URL
         guard inputURL.isFileURL else { return false }

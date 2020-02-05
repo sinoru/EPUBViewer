@@ -330,6 +330,7 @@ class EPUBReaderPageViewController: UIViewController {
 }
 
 extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
         switch (pageViewController.traitCollection.userInterfaceIdiom, orientation) {
         case (.phone, .landscapeLeft), (.phone, .landscapeRight), (.pad, _):
@@ -357,10 +358,12 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
         }
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
 
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if pageViewController.viewControllers != previousViewControllers {
             guard let previousViewControllers = previousViewControllers as? [WebViewController] else {
@@ -374,6 +377,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
 }
 
 extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? WebViewController else {
             fatalError("viewController should be \([WebViewController].self)")

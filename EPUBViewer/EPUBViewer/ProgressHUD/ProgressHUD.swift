@@ -18,10 +18,12 @@ struct ProgressHUD<Content>: View where Content: View {
             self.style = style
         }
 
+        // swiftlint:disable:next line_length
         func makeUIViewController(context: UIViewControllerRepresentableContext<ProgressHUD.Controller>) -> ProgressHUDController {
             return ProgressHUDController(style: style)
         }
 
+        // swiftlint:disable:next line_length
         func updateUIViewController(_ uiViewController: ProgressHUDController, context: UIViewControllerRepresentableContext<ProgressHUD.Controller>) {
 
         }

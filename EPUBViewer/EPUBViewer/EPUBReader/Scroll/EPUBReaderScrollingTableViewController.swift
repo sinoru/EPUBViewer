@@ -40,7 +40,9 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
 
     private var prefetchedWebViewControllers = [IndexPath: EPUBReaderWebViewController]()
 
+    // swiftlint:disable:next line_length
     lazy var dataSource = UITableViewDiffableDataSource<Section, EPUB.PagePosition>(tableView: tableView) { [unowned self] tableView, indexPath, pagePosition -> UITableViewCell? in
+        // swiftlint:disable:next line_length
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellReuseIdentifier, for: indexPath) as? EPUBReaderScrollingTableViewCell else {
             fatalError()
         }
@@ -136,6 +138,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         return dataSource.itemIdentifier(for: indexPath)?.pageSize.height ?? 0
     }
 
+    // swiftlint:disable:next line_length
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
             return
@@ -144,6 +147,7 @@ class EPUBReaderScrollingTableViewController: UITableViewController {
         cell.webViewController.flatMap { addChild($0) }
     }
 
+    // swiftlint:disable:next line_length
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? EPUBReaderScrollingTableViewCell else {
             return
