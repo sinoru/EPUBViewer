@@ -2,7 +2,6 @@
 //  EPUBReaderPageWebViewController.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/15.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 

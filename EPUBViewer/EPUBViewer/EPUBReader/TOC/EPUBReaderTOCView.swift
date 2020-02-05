@@ -2,7 +2,6 @@
 //  EPUBReaderTOCView.swift
 //  EPUBViewer
 //
-//  Created by Jaehong Kang on 2020/01/23.
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  PreviewViewController.swift
 //  QuickLookPreview
 //
-//  Created by Jaehong Kang on 2020/01/10.
+
 //  Copyright © 2020 Jaehong Kang. All rights reserved.
 //
 
