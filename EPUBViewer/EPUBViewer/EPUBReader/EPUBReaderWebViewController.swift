@@ -148,7 +148,7 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
 
 extension EPUBReaderWebViewController {
     @objc
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) { // swiftlint:disable:this line_length
         switch navigationAction.navigationType {
         case .linkActivated, .formSubmitted, .formResubmitted:
             break

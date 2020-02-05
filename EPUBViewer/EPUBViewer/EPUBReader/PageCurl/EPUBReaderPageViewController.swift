@@ -406,6 +406,7 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         return webViewController
     }
 
+    // swiftlint:disable:next line_length
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? WebViewController else {
             fatalError("viewController should be \([WebViewController].self)")

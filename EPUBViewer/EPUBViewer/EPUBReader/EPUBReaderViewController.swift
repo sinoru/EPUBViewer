@@ -155,6 +155,7 @@ class EPUBReaderViewController: UINavigationController {
 
 
 extension EPUBReaderViewController: UINavigationControllerDelegate {
+    // swiftlint:disable:next line_length
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.leftBarButtonItems = [
             .init(barButtonSystemItem: .close, target: self, action: #selector(self.close)),
