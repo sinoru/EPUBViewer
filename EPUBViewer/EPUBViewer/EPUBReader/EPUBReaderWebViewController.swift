@@ -158,24 +158,13 @@ extension EPUBReaderWebViewController {
 
         guard
             let originalURL = webView.url,
-            let targetURL = navigationAction.request.url else {
+            let targetURL = navigationAction.request.url,
+            navigationAction.targetFrame?.isMainFrame == true,
+            originalURL != targetURL,
+            originalURL.scheme != "about"
+            else {
                 decisionHandler(.allow)
                 return
-        }
-
-        guard navigationAction.targetFrame?.isMainFrame == true else {
-            decisionHandler(.allow)
-            return
-        }
-
-        guard originalURL != targetURL else {
-            decisionHandler(.allow)
-            return
-        }
-
-        guard originalURL.scheme != "about" else {
-            decisionHandler(.allow)
-            return
         }
 
         guard
