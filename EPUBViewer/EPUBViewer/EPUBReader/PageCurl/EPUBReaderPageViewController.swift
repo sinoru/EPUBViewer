@@ -336,7 +336,10 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
             pageViewController.isDoubleSided = true
             pageViewController.setViewControllers(
                 (0...1)
-                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map {
+                        pageViewController.viewControllers?.indices.contains($0) == true ?
+                            pageViewController.viewControllers?[$0] : nil
+                    }
                     .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
@@ -347,7 +350,10 @@ extension EPUBReaderPageViewController: UIPageViewControllerDelegate {
             pageViewController.isDoubleSided = false
             pageViewController.setViewControllers(
                 (0..<1)
-                    .map { pageViewController.viewControllers?.indices.contains($0) == true ? pageViewController.viewControllers?[$0] : nil }
+                    .map {
+                        pageViewController.viewControllers?.indices.contains($0) == true ?
+                            pageViewController.viewControllers?[$0] : nil
+                    }
                     .map { $0 ?? WebViewController() },
                 direction: .forward,
                 animated: true)
@@ -417,7 +423,10 @@ extension EPUBReaderPageViewController: UIPageViewControllerDataSource {
         let webViewController: WebViewController? = {
             guard
                 let currentIndex = nextWebViewControllers
-                    .firstIndex(where: { $0.pageInfo?.0 == viewController.pageInfo?.0 && $0.pageInfo?.1 == viewController.pageInfo?.1 })
+                    .firstIndex(where: {
+                        $0.pageInfo?.0 == viewController.pageInfo?.0 &&
+                            $0.pageInfo?.1 == viewController.pageInfo?.1
+                    })
                 else {
                     return nextWebViewControllers.first
             }
