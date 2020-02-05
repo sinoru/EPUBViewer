@@ -43,11 +43,21 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
     required init(configuration: WKWebViewConfiguration) {
         configuration.processPool = Self.processPool
         configuration.userContentController.addUserScript(
-            .init(source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!, injectionTime: .atDocumentStart, forMainFrameOnly: false))
+            .init(
+                source: String(data: NSDataAsset(name: "jQueryScript")!.data, encoding: .utf8)!,
+                injectionTime: .atDocumentStart,
+                forMainFrameOnly: false
+            )
+        )
         configuration.userContentController.addUserScript(
-            .init(source: """
-                $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />')
-            """, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+            .init(
+                source: """
+                    $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />')
+                """,
+                injectionTime: .atDocumentEnd,
+                forMainFrameOnly: true
+            )
+        )
 
         super.init(configuration: configuration)
 
@@ -90,7 +100,10 @@ class EPUBReaderWebViewController: WebViewController, ObservableObject {
             return
         }
 
-        webView.loadFileURL(epubResourceURL.appendingPathComponent(epubItem.url.relativePath), allowingReadAccessTo: epubResourceURL)
+        webView.loadFileURL(
+            epubResourceURL.appendingPathComponent(epubItem.url.relativePath),
+            allowingReadAccessTo: epubResourceURL
+        )
     }
 
     func setWebViewContentOffset(_ offset: CGPoint) {
